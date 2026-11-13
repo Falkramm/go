@@ -1,0 +1,16 @@
+goos: linux
+goarch: amd64
+cpu: Intel(R) Xeon(R) Gold 6238R CPU @ 2.20GHz
+BenchmarkStackMap/Uint64Six         	 8215281	       128.3 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64Six         	 9125520	       126.0 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64Six         	 9175914	       136.5 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64Six         	 8653736	       129.1 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64Six         	 8392591	       140.0 ns/op	       0 B/op	       0 allocs/op
+goos: linux
+goarch: amd64
+cpu: Intel(R) Xeon(R) Gold 6238R CPU @ 2.20GHz
+BenchmarkStackMap/Uint64Six         	 9334137	       148.1 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64Six         	 8961568	       137.3 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64Six         	 7573922	       147.4 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64Six         	 8929369	       146.5 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64Six         	 7296219	       142.6 ns/op	       0 B/op	       0 allocs/op

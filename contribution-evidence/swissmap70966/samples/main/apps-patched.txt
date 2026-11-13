@@ -1,0 +1,60 @@
+goos: linux
+goarch: amd64
+pkg: encoding/json
+cpu: Intel(R) Xeon(R) Gold 6238R CPU @ 2.20GHz
+BenchmarkMarshalMap   	  420192	      1509 ns/op	      80 B/op	       6 allocs/op
+BenchmarkMarshalMap   	  447904	      1642 ns/op	      80 B/op	       6 allocs/op
+BenchmarkMarshalMap   	  371142	      1528 ns/op	      80 B/op	       6 allocs/op
+BenchmarkUnmarshalMap 	  349158	      2412 ns/op	     104 B/op	       8 allocs/op
+BenchmarkUnmarshalMap 	  356600	      2128 ns/op	     104 B/op	       8 allocs/op
+BenchmarkUnmarshalMap 	  255324	      2216 ns/op	     104 B/op	       8 allocs/op
+goos: linux
+goarch: amd64
+pkg: html/template
+cpu: Intel(R) Xeon(R) Gold 6238R CPU @ 2.20GHz
+BenchmarkEscapedExecutePage  	    8834	     68822 ns/op	    8269 B/op	     427 allocs/op
+BenchmarkEscapedExecutePage  	   10000	     69918 ns/op	    8268 B/op	     427 allocs/op
+BenchmarkEscapedExecutePage  	    8504	     68161 ns/op	    8269 B/op	     427 allocs/op
+BenchmarkTemplateSpecialTags 	    3284	    255475 ns/op	   39770 B/op	     173 allocs/op
+BenchmarkTemplateSpecialTags 	    3162	    205768 ns/op	   39770 B/op	     173 allocs/op
+BenchmarkTemplateSpecialTags 	    3090	    234578 ns/op	   39770 B/op	     173 allocs/op
+goos: linux
+goarch: amd64
+pkg: go/parser
+cpu: Intel(R) Xeon(R) Gold 6238R CPU @ 2.20GHz
+BenchmarkParse   	     166	   4485645 ns/op	  12.14 MB/s	  678914 B/op	   19346 allocs/op
+BenchmarkParse   	     152	   4237966 ns/op	  12.85 MB/s	  678902 B/op	   19346 allocs/op
+BenchmarkParse   	     100	   5057389 ns/op	  10.77 MB/s	  678899 B/op	   19346 allocs/op
+BenchmarkResolve 	     475	   1284841 ns/op	  42.40 MB/s	  128676 B/op	    2070 allocs/op
+BenchmarkResolve 	     498	   1360260 ns/op	  40.05 MB/s	  128674 B/op	    2070 allocs/op
+BenchmarkResolve 	     460	   1420099 ns/op	  38.36 MB/s	  128674 B/op	    2070 allocs/op
+goos: linux
+goarch: amd64
+pkg: encoding/json
+cpu: Intel(R) Xeon(R) Gold 6238R CPU @ 2.20GHz
+BenchmarkMarshalMap   	  385375	      1567 ns/op	      80 B/op	       6 allocs/op
+BenchmarkMarshalMap   	  501624	      1572 ns/op	      80 B/op	       6 allocs/op
+BenchmarkMarshalMap   	  410011	      1780 ns/op	      80 B/op	       6 allocs/op
+BenchmarkUnmarshalMap 	  236073	      2431 ns/op	     104 B/op	       8 allocs/op
+BenchmarkUnmarshalMap 	  246315	      2393 ns/op	     104 B/op	       8 allocs/op
+BenchmarkUnmarshalMap 	  244107	      2693 ns/op	     104 B/op	       8 allocs/op
+goos: linux
+goarch: amd64
+pkg: html/template
+cpu: Intel(R) Xeon(R) Gold 6238R CPU @ 2.20GHz
+BenchmarkEscapedExecutePage  	    8083	     81075 ns/op	    8269 B/op	     427 allocs/op
+BenchmarkEscapedExecutePage  	   10000	     83529 ns/op	    8268 B/op	     427 allocs/op
+BenchmarkEscapedExecutePage  	    7909	     81929 ns/op	    8269 B/op	     427 allocs/op
+BenchmarkTemplateSpecialTags 	    1900	    277859 ns/op	   39777 B/op	     173 allocs/op
+BenchmarkTemplateSpecialTags 	    3148	    263080 ns/op	   39770 B/op	     173 allocs/op
+BenchmarkTemplateSpecialTags 	    2288	    241857 ns/op	   39774 B/op	     173 allocs/op
+goos: linux
+goarch: amd64
+pkg: go/parser
+cpu: Intel(R) Xeon(R) Gold 6238R CPU @ 2.20GHz
+BenchmarkParse   	     100	   5016251 ns/op	  10.86 MB/s	  678938 B/op	   19346 allocs/op
+BenchmarkParse   	     100	   5426734 ns/op	  10.04 MB/s	  678912 B/op	   19346 allocs/op
+BenchmarkParse   	     100	   5031836 ns/op	  10.83 MB/s	  678905 B/op	   19346 allocs/op
+BenchmarkResolve 	     362	   1736298 ns/op	  31.37 MB/s	  128677 B/op	    2070 allocs/op
+BenchmarkResolve 	     408	   1538887 ns/op	  35.40 MB/s	  128673 B/op	    2070 allocs/op
+BenchmarkResolve 	     560	   1444852 ns/op	  37.70 MB/s	  128673 B/op	    2070 allocs/op

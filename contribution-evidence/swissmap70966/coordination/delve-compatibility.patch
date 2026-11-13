@@ -1,0 +1,135 @@
+diff --git a/pkg/proc/mapiter.go b/pkg/proc/mapiter.go
+index f0e34c9..a581596 100644
+--- a/pkg/proc/mapiter.go
++++ b/pkg/proc/mapiter.go
+@@ -323,7 +323,7 @@ func (it *mapIteratorClassic) mapEvacuated(b *Variable) bool {
+ // Swisstable Maps ///////////////////////////////////////////////////////////////
+ 
+ const (
+-	swissTableCtrlEmpty = 0b10000000 // +rtype go1.24 internal/runtime/maps.ctrlEmpty
++	swissTableCtrlEmptyLegacy = 0b10000000
+ )
+ 
+ type mapIteratorSwiss struct {
+@@ -371,6 +371,7 @@ type mapIteratorSwiss struct {
+ 	slotIdx uint32
+ 
+ 	groupCount uint64 // Total count of visited groups except for current table
++	ctrlEmpty  byte
+ 
+ 	curKey, curValue *Variable
+ 
+@@ -404,6 +405,8 @@ var (
+ // this type as **table but in reality it is either *[dirLen]*table for
+ // large maps or *group for small maps, when it.dirLen == 0.
+ func (it *mapIteratorSwiss) loadTypes() {
++	it.loadCtrlEmpty()
++
+ 	tableptrptrtyp, ok := it.dirPtr.DwarfType.(*godwarf.PtrType)
+ 	if !ok {
+ 		it.v.Unreadable = errSwissMapBadTableField
+@@ -517,6 +520,26 @@ func (it *mapIteratorSwiss) loadTypes() {
+ 	it.dirPtr = it.dirPtr.maybeDereference()
+ }
+ 
++func (it *mapIteratorSwiss) loadCtrlEmpty() {
++	// Older targets may omit the encoding metadata. Their empty and deleted
++	// slots both have the high bit set.
++	it.ctrlEmpty = swissTableCtrlEmptyLegacy
++	typ, err := it.v.bi.findType("internal/runtime/maps.ctrl")
++	if err != nil {
++		return
++	}
++	constants := it.v.bi.consts.Get(typ)
++	if constants == nil {
++		return
++	}
++	for _, c := range constants.values {
++		if c.fullName == "internal/runtime/maps.ctrlEmpty" {
++			it.ctrlEmpty = byte(c.value)
++			return
++		}
++	}
++}
++
+ // derived from $GOROOT/src/internal/runtime/maps/table.go and $GOROOT/src/runtime/runtime-gdb.py
+ func (it *mapIteratorSwiss) next(timedOut func() bool) bool {
+ 	if it.v.Unreadable != nil {
+@@ -743,6 +766,5 @@ func (it *mapIteratorSwiss) value() *Variable {
+ }
+ 
+ func (it *mapIteratorSwiss) slotIsEmptyOrDeleted(k uint32) bool {
+-	// TODO: check that this hasn't changed after it's merged and the TODO is deleted
+-	return it.group.ctrls[k]&swissTableCtrlEmpty == swissTableCtrlEmpty
++	return it.group.ctrls[k]&0x80 == it.ctrlEmpty
+ }
+diff --git a/pkg/proc/mapiter_test.go b/pkg/proc/mapiter_test.go
+new file mode 100644
+index 0000000..5464199
+--- /dev/null
++++ b/pkg/proc/mapiter_test.go
+@@ -0,0 +1,64 @@
++package proc
++
++import (
++	"debug/dwarf"
++	"testing"
++
++	"github.com/go-delve/delve/pkg/dwarf/dwarfbuilder"
++)
++
++func TestSwissMapControlEncoding(t *testing.T) {
++	for _, test := range []struct {
++		name         string
++		haveType     bool
++		constantName string
++		empty        byte
++		want         byte
++	}{
++		{"legacy", true, "ctrlEmpty", 0x80, 0x80},
++		{"zero", true, "ctrlEmpty", 0, 0},
++		{"missing-type", false, "", 0, 0x80},
++		{"missing-constant", true, "", 0, 0x80},
++		{"unrelated-constant", true, "ctrlDeleted", 0xfe, 0x80},
++	} {
++		t.Run(test.name, func(t *testing.T) {
++			builder := dwarfbuilder.New()
++			builder.Attr(dwarf.AttrProducer, "Go cmd/compile go1.28-devel_22493433")
++			if test.haveType {
++				typ := builder.AddBaseType("internal/runtime/maps.ctrl", dwarfbuilder.DW_ATE_unsigned, 1)
++				if test.constantName != "" {
++					builder.TagOpen(dwarf.TagConstant, "internal/runtime/maps."+test.constantName)
++					builder.Attr(dwarf.AttrType, typ)
++					builder.Attr(dwarf.AttrConstValue, uint64(test.empty))
++					builder.TagClose()
++				}
++			}
++			abbrev, aranges, frame, info, line, pubnames, ranges, str, loc, err := builder.Build()
++			if err != nil {
++				t.Fatal(err)
++			}
++			data, err := dwarf.New(abbrev, aranges, frame, info, line, pubnames, ranges, str)
++			if err != nil {
++				t.Fatal(err)
++			}
++			bi := NewBinaryInfo("linux", "amd64", false)
++			bi.LoadImageFromData(data, frame, line, loc)
++			defer bi.Close()
++			iterator := &mapIteratorSwiss{v: &Variable{bi: bi}, group: &swissGroup{ctrls: make([]byte, 1)}}
++			iterator.loadCtrlEmpty()
++			if iterator.ctrlEmpty != test.want {
++				t.Fatalf("empty control byte = %#x, want %#x", iterator.ctrlEmpty, test.want)
++			}
++			for control := 0; control < 256; control++ {
++				iterator.group.ctrls[0] = byte(control)
++				want := control >= 128
++				if test.want == 0 {
++					want = control < 128
++				}
++				if got := iterator.slotIsEmptyOrDeleted(0); got != want {
++					t.Errorf("control %#x: empty/deleted = %v, want %v", control, got, want)
++				}
++			}
++		})
++	}
++}

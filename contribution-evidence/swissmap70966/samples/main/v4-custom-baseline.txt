@@ -1,0 +1,66 @@
+goos: linux
+goarch: amd64
+cpu: Intel(R) Xeon(R) Gold 6238R CPU @ 2.20GHz
+BenchmarkSwissMap/U64U64/Size=65536/Make         	     867	    608068 ns/op	 2364592 B/op	     258 allocs/op
+BenchmarkSwissMap/U64U64/Size=65536/Make         	    1184	    550879 ns/op	 2364592 B/op	     258 allocs/op
+BenchmarkSwissMap/U64U64/Size=65536/Make         	    1318	    568864 ns/op	 2364592 B/op	     258 allocs/op
+BenchmarkSwissMap/StringValue64/Size=65536/Make  	      96	   5836721 ns/op	11539632 B/op	     258 allocs/op
+BenchmarkSwissMap/StringValue64/Size=65536/Make  	     100	   5624093 ns/op	11539632 B/op	     258 allocs/op
+BenchmarkSwissMap/StringValue64/Size=65536/Make  	     100	   6042059 ns/op	11539632 B/op	     258 allocs/op
+BenchmarkSwissMap/Key32Value256/Size=65536/Make  	     166	   3301842 ns/op	 6296752 B/op	     258 allocs/op
+BenchmarkSwissMap/Key32Value256/Size=65536/Make  	     212	   3267804 ns/op	 6296752 B/op	     258 allocs/op
+BenchmarkSwissMap/Key32Value256/Size=65536/Make  	     194	   3351007 ns/op	 6296752 B/op	     258 allocs/op
+goos: linux
+goarch: amd64
+cpu: Intel(R) Xeon(R) Gold 6238R CPU @ 2.20GHz
+BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=0         	38393626	        14.04 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=0         	41503680	        14.42 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=0         	51603562	        14.37 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=100       	49692382	        17.06 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=100       	37532796	        19.49 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=100       	40328661	        16.36 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=0  	37317969	        21.72 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=0  	27189492	        21.93 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=0  	23307678	        24.20 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=100         	28648305	        25.48 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=100         	19960922	        26.60 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=100         	27427027	        26.93 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=0           	16877064	        35.64 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=0           	23835165	        34.67 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=0           	16510945	        33.72 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=100         	13187766	        56.42 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=100         	 9314605	        60.50 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=100         	14238614	        55.39 ns/op	       0 B/op	       0 allocs/op
+goos: linux
+goarch: amd64
+cpu: Intel(R) Xeon(R) Gold 6238R CPU @ 2.20GHz
+BenchmarkSwissMap/U64U64/Size=65536/Make         	    1046	    752369 ns/op	 2364592 B/op	     258 allocs/op
+BenchmarkSwissMap/U64U64/Size=65536/Make         	     733	    701548 ns/op	 2364592 B/op	     258 allocs/op
+BenchmarkSwissMap/U64U64/Size=65536/Make         	     722	    727395 ns/op	 2364592 B/op	     258 allocs/op
+BenchmarkSwissMap/StringValue64/Size=65536/Make  	     100	   5973575 ns/op	11539632 B/op	     258 allocs/op
+BenchmarkSwissMap/StringValue64/Size=65536/Make  	     100	   6196404 ns/op	11539632 B/op	     258 allocs/op
+BenchmarkSwissMap/StringValue64/Size=65536/Make  	     102	   5356548 ns/op	11539632 B/op	     258 allocs/op
+BenchmarkSwissMap/Key32Value256/Size=65536/Make  	     189	   3515981 ns/op	 6296752 B/op	     258 allocs/op
+BenchmarkSwissMap/Key32Value256/Size=65536/Make  	     213	   3163753 ns/op	 6296752 B/op	     258 allocs/op
+BenchmarkSwissMap/Key32Value256/Size=65536/Make  	     213	   3565092 ns/op	 6296752 B/op	     258 allocs/op
+goos: linux
+goarch: amd64
+cpu: Intel(R) Xeon(R) Gold 6238R CPU @ 2.20GHz
+BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=0         	36955904	        17.09 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=0         	39965358	        13.13 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=0         	52532462	        15.26 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=100       	32243133	        18.30 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=100       	47631715	        16.60 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=100       	35228011	        15.48 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=0  	26391220	        22.08 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=0  	27952359	        22.78 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=0  	28409556	        21.20 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=100         	22801282	        25.75 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=100         	26925280	        26.37 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=100         	24327734	        28.03 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=0           	18953223	        33.59 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=0           	18547536	        31.50 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=0           	16999614	        31.01 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=100         	10467326	        53.34 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=100         	12013681	        49.98 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=100         	 9902252	        59.64 ns/op	       0 B/op	       0 allocs/op

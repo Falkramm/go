@@ -1,0 +1,18 @@
+goos: linux
+goarch: amd64
+pkg: encoding/json
+cpu: Intel(R) Xeon(R) Gold 6238R CPU @ 2.20GHz
+BenchmarkMarshalMap 	  762128	      1711 ns/op	      80 B/op	       6 allocs/op
+BenchmarkMarshalMap 	  811310	      1770 ns/op	      80 B/op	       6 allocs/op
+BenchmarkMarshalMap 	  776834	      1704 ns/op	      80 B/op	       6 allocs/op
+BenchmarkMarshalMap 	  625354	      1730 ns/op	      80 B/op	       6 allocs/op
+BenchmarkMarshalMap 	 1000000	      1745 ns/op	      80 B/op	       6 allocs/op
+goos: linux
+goarch: amd64
+pkg: encoding/json
+cpu: Intel(R) Xeon(R) Gold 6238R CPU @ 2.20GHz
+BenchmarkMarshalMap 	  894004	      1636 ns/op	      80 B/op	       6 allocs/op
+BenchmarkMarshalMap 	  690068	      1792 ns/op	      80 B/op	       6 allocs/op
+BenchmarkMarshalMap 	  879152	      1708 ns/op	      80 B/op	       6 allocs/op
+BenchmarkMarshalMap 	  934155	      1719 ns/op	      80 B/op	       6 allocs/op
+BenchmarkMarshalMap 	  800431	      1710 ns/op	      80 B/op	       6 allocs/op

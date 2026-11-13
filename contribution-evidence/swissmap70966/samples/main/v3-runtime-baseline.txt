@@ -1,0 +1,82 @@
+goos: linux
+goarch: amd64
+pkg: runtime
+cpu: Intel(R) Xeon(R) Gold 6238R CPU @ 2.20GHz
+BenchmarkMapAccessHit/Key=int64/Elem=int64/len=12  	12371499	        26.20 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAccessHit/Key=int64/Elem=int64/len=12  	11341800	        27.84 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAccessHit/Key=int64/Elem=int64/len=12  	10216504	        29.96 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAccessHit/Key=string/Elem=string/len=12         	10901910	        36.26 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAccessHit/Key=string/Elem=string/len=12         	 8140582	        40.24 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAccessHit/Key=string/Elem=string/len=12         	10067647	        36.62 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAccessMiss/Key=int64/Elem=int64/len=12          	13448374	        28.53 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAccessMiss/Key=int64/Elem=int64/len=12          	11540379	        30.53 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAccessMiss/Key=int64/Elem=int64/len=12          	15424207	        28.91 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAccessMiss/Key=string/Elem=string/len=12        	12959589	        31.72 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAccessMiss/Key=string/Elem=string/len=12        	14074000	        28.39 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAccessMiss/Key=string/Elem=string/len=12        	15124539	        34.19 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAssignExists/Key=int64/Elem=int64/len=12        	13939173	        31.01 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAssignExists/Key=int64/Elem=int64/len=12        	12608930	        29.43 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAssignExists/Key=int64/Elem=int64/len=12        	12514328	        26.62 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAssignExists/Key=string/Elem=string/len=12      	11997651	        33.82 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAssignExists/Key=string/Elem=string/len=12      	10734176	        37.76 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAssignExists/Key=string/Elem=string/len=12      	 9409310	        39.00 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapDelete/Key=int64/Elem=int64/len=12              	 3927642	       109.0 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapDelete/Key=int64/Elem=int64/len=12              	 3610706	       101.6 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapDelete/Key=int64/Elem=int64/len=12              	 3621301	        96.84 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapDelete/Key=string/Elem=string/len=12            	 3328029	       113.1 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapDelete/Key=string/Elem=string/len=12            	 2975679	       145.1 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapDelete/Key=string/Elem=string/len=12            	 3097137	       119.9 ns/op	       0 B/op	       0 allocs/op
+goos: linux
+goarch: amd64
+pkg: runtime
+cpu: Intel(R) Xeon(R) Gold 6238R CPU @ 2.20GHz
+BenchmarkMapStringKeysEight_16  	18657700	        16.97 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapStringKeysEight_16  	18740475	        19.01 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapStringKeysEight_16  	23720677	        23.15 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapStringKeysEight_128 	21902283	        14.85 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapStringKeysEight_128 	27493395	        15.10 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapStringKeysEight_128 	31733997	        15.19 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapCycle               	12369451	        31.03 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapCycle               	11331556	        30.55 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapCycle               	13202127	        29.93 ns/op	       0 B/op	       0 allocs/op
+goos: linux
+goarch: amd64
+pkg: runtime
+cpu: Intel(R) Xeon(R) Gold 6238R CPU @ 2.20GHz
+BenchmarkMapAccessHit/Key=int64/Elem=int64/len=12  	13968169	        26.25 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAccessHit/Key=int64/Elem=int64/len=12  	16268985	        25.70 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAccessHit/Key=int64/Elem=int64/len=12  	15258308	        27.42 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAccessHit/Key=string/Elem=string/len=12         	11542826	        33.14 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAccessHit/Key=string/Elem=string/len=12         	10089384	        31.96 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAccessHit/Key=string/Elem=string/len=12         	 9591554	        35.90 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAccessMiss/Key=int64/Elem=int64/len=12          	15252908	        29.03 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAccessMiss/Key=int64/Elem=int64/len=12          	17323935	        23.61 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAccessMiss/Key=int64/Elem=int64/len=12          	13633028	        29.28 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAccessMiss/Key=string/Elem=string/len=12        	10409665	        30.74 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAccessMiss/Key=string/Elem=string/len=12        	12556954	        29.17 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAccessMiss/Key=string/Elem=string/len=12        	16750218	        30.09 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAssignExists/Key=int64/Elem=int64/len=12        	13221669	        29.30 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAssignExists/Key=int64/Elem=int64/len=12        	15634410	        24.20 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAssignExists/Key=int64/Elem=int64/len=12        	11846749	        30.82 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAssignExists/Key=string/Elem=string/len=12      	 9906895	        35.01 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAssignExists/Key=string/Elem=string/len=12      	 9433999	        38.17 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapAssignExists/Key=string/Elem=string/len=12      	 8947928	        38.41 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapDelete/Key=int64/Elem=int64/len=12              	 3806784	       108.6 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapDelete/Key=int64/Elem=int64/len=12              	 3982701	        95.95 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapDelete/Key=int64/Elem=int64/len=12              	 3743316	        98.76 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapDelete/Key=string/Elem=string/len=12            	 3136376	       120.9 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapDelete/Key=string/Elem=string/len=12            	 2987498	       130.5 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapDelete/Key=string/Elem=string/len=12            	 3087031	       124.6 ns/op	       0 B/op	       0 allocs/op
+goos: linux
+goarch: amd64
+pkg: runtime
+cpu: Intel(R) Xeon(R) Gold 6238R CPU @ 2.20GHz
+BenchmarkMapStringKeysEight_16  	27508813	        13.77 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapStringKeysEight_16  	28056517	        13.10 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapStringKeysEight_16  	28195424	        17.73 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapStringKeysEight_128 	28702245	        17.20 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapStringKeysEight_128 	23421308	        15.45 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapStringKeysEight_128 	26643266	        12.20 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapCycle               	13865596	        34.99 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapCycle               	 9504872	        35.72 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapCycle               	15207696	        32.22 ns/op	       0 B/op	       0 allocs/op

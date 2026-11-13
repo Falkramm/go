@@ -1,0 +1,36 @@
+goos: linux
+goarch: amd64
+cpu: Intel(R) Xeon(R) Gold 6238R CPU @ 2.20GHz
+BenchmarkStackMap/Uint64One         	14305754	        40.83 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64One         	15930175	        35.01 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64One         	17364364	        37.30 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64Six         	 5397247	       138.2 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64Six         	 4558797	       144.4 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64Six         	 4199156	       135.1 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64Eight       	 2785024	       184.3 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64Eight       	 3397020	       169.7 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64Eight       	 3202174	       165.3 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/StringShort       	 3607012	       166.0 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/StringShort       	 3246091	       194.7 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/StringShort       	 3198866	       173.9 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/StringLong        	 2405000	       246.8 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/StringLong        	 2551444	       288.2 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/StringLong        	 2459996	       246.0 ns/op	       0 B/op	       0 allocs/op
+goos: linux
+goarch: amd64
+cpu: Intel(R) Xeon(R) Gold 6238R CPU @ 2.20GHz
+BenchmarkStackMap/Uint64One         	13900669	        42.72 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64One         	21102186	        44.31 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64One         	15289581	        38.91 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64Six         	 4923274	       140.8 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64Six         	 3896361	       154.8 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64Six         	 4407414	       120.6 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64Eight       	 3850344	       168.9 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64Eight       	 3909337	       170.3 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/Uint64Eight       	 4206246	       168.4 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/StringShort       	 3797792	       181.0 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/StringShort       	 3125894	       166.7 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/StringShort       	 3488274	       169.7 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/StringLong        	 2371542	       238.9 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/StringLong        	 2681431	       269.0 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStackMap/StringLong        	 2259057	       271.9 ns/op	       0 B/op	       0 allocs/op

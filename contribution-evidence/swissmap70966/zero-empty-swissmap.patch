@@ -1,0 +1,772 @@
+diff --git a/src/cmd/compile/internal/ssagen/intrinsics.go b/src/cmd/compile/internal/ssagen/intrinsics.go
+index 735779eb..16853383 100644
+--- a/src/cmd/compile/internal/ssagen/intrinsics.go
++++ b/src/cmd/compile/internal/ssagen/intrinsics.go
+@@ -6,7 +6,6 @@ package ssagen
+ 
+ import (
+ 	"fmt"
+-	"internal/abi"
+ 	"internal/buildcfg"
+ 
+ 	"cmd/compile/internal/base"
+@@ -1541,171 +1540,68 @@ func initIntrinsics(cfg *intrinsicBuildConfig) {
+ 			// byte N matched).
+ 			//
+ 			// NOTE: See comment above on bitsetFirst.
+-			out := s.newValue1(ssaop.OpAMD64PMOVMSKB, types.Types[types.TUINT8], eq)
+-
+-			// g is only 64-bits so the upper 64-bits of the
+-			// 128-bit register will be zero. If h2 is also zero,
+-			// then we'll get matches on those bytes. Truncate the
+-			// upper bits to ignore such matches.
+-			ret := s.newValue1(ssaop.OpZeroExt8to64, types.Types[types.TUINT64], out)
++			if buildcfg.GOAMD64 >= 2 {
++				// The broadcast fills all sixteen bytes with encoded h2,
++				// which cannot match the zero upper eight bytes of gfp.
++				return s.newValue1(ssaop.OpAMD64PMOVMSKB, types.Types[types.TUINT64], eq)
++			}
+ 
+-			return ret
++			// The v1 broadcast fills only the lower eight bytes. The
++			// upper bytes may match gfp and must be discarded.
++			out := s.newValue1(ssaop.OpAMD64PMOVMSKB, types.Types[types.TUINT8], eq)
++			return s.newValue1(ssaop.OpZeroExt8to64, types.Types[types.TUINT64], out)
+ 		},
+ 		sys.AMD64)
+ 
+ 	addF("internal/runtime/maps", "ctrlGroupMatchEmpty",
+ 		func(s *state, n *ir.CallExpr, args []*ssa.Value) *ssa.Value {
+-			// An empty slot is   1000 0000
+-			// A deleted slot is  1111 1110
+-			// A full slot is     0??? ????
+-
++			// Empty slots have zero control bytes. Deleted slots are
++			// 0111 1110, and full slots are 1??? ????.
+ 			g := args[0]
+ 
+ 			// Explicit copy to fp register. See
+ 			// https://go.dev/issue/70451.
+ 			gfp := s.newValue1(ssaop.OpAMD64MOVQi2f, types.TypeInt128, g)
++			zero := s.newValue0(ssaop.OpAMD64Zero128, types.TypeInt128)
++			eq := s.newValue2(ssaop.OpAMD64PCMPEQB, types.TypeInt128, zero, gfp)
+ 
+-			if buildcfg.GOAMD64 >= 2 {
+-				// "PSIGNB negates each data element of the
+-				// destination operand (the first operand) if
+-				// the signed integer value of the
+-				// corresponding data element in the source
+-				// operand (the second operand) is less than
+-				// zero. If the signed integer value of a data
+-				// element in the source operand is positive,
+-				// the corresponding data element in the
+-				// destination operand is unchanged. If a data
+-				// element in the source operand is zero, the
+-				// corresponding data element in the
+-				// destination operand is set to zero" - Intel SDM
+-				//
+-				// If we pass the group control word as both
+-				// arguments:
+-				// - Full slots are unchanged.
+-				// - Deleted slots are negated, becoming
+-				//   0000 0010.
+-				// - Empty slots are negated, becoming
+-				//   1000 0000 (unchanged!).
+-				//
+-				// The result is that only empty slots have the
+-				// sign bit set. We then use PMOVMSKB to
+-				// extract the sign bits.
+-				sign := s.newValue2(ssaop.OpAMD64PSIGNB, types.TypeInt128, gfp, gfp)
+-
+-				// Construct a "byte mask": each output bit is
+-				// equal to the sign bit each input byte. The
+-				// sign bit is only set for empty or deleted
+-				// slots.
+-				//
+-				// This results in a packed output (bit N set
+-				// means byte N matched).
+-				//
+-				// NOTE: See comment above on bitsetFirst.
+-				ret := s.newValue1(ssaop.OpAMD64PMOVMSKB, types.Types[types.TUINT64], sign)
+-
+-				// g is only 64-bits so the upper 64-bits of
+-				// the 128-bit register will be zero. PSIGNB
+-				// will keep all of these bytes zero, so no
+-				// need to truncate.
+-
+-				return ret
+-			}
+-
+-			// No PSIGNB, simply do byte equality with ctrlEmpty.
+-
+-			// Load ctrlEmpty into each byte of a control word.
+-			var ctrlsEmpty uint64 = abi.MapCtrlEmpty
+-			e := s.constInt64(types.Types[types.TUINT64], int64(ctrlsEmpty))
+-			// Explicit copy to fp register. See
+-			// https://go.dev/issue/70451.
+-			efp := s.newValue1(ssaop.OpAMD64MOVQi2f, types.TypeInt128, e)
+-
+-			// Compare each byte of the control word with ctrlEmpty. Each
+-			// matching byte has every bit set.
+-			eq := s.newValue2(ssaop.OpAMD64PCMPEQB, types.TypeInt128, efp, gfp)
+-
+-			// Construct a "byte mask": each output bit is equal to
+-			// the sign bit each input byte.
+-			//
+-			// This results in a packed output (bit N set means
+-			// byte N matched).
+-			//
+-			// NOTE: See comment above on bitsetFirst.
++			// Extract each byte's sign bit into a packed slot mask.
+ 			out := s.newValue1(ssaop.OpAMD64PMOVMSKB, types.Types[types.TUINT8], eq)
+ 
+-			// g is only 64-bits so the upper 64-bits of the
+-			// 128-bit register will be zero. The upper 64-bits of
+-			// efp are also zero, so we'll get matches on those
+-			// bytes. Truncate the upper bits to ignore such
+-			// matches.
++			// The upper eight bytes of gfp are also zero and match.
++			// Truncate the mask to the eight slots in the group.
+ 			return s.newValue1(ssaop.OpZeroExt8to64, types.Types[types.TUINT64], out)
+ 		},
+ 		sys.AMD64)
+ 
+ 	addF("internal/runtime/maps", "ctrlGroupMatchEmptyOrDeleted",
+ 		func(s *state, n *ir.CallExpr, args []*ssa.Value) *ssa.Value {
+-			// An empty slot is   1000 0000
+-			// A deleted slot is  1111 1110
+-			// A full slot is     0??? ????
+-			//
+-			// A slot is empty or deleted iff bit 7 (sign bit) is
+-			// set.
+-
++			// A slot is empty or deleted iff its sign bit is unset.
+ 			g := args[0]
+ 
+ 			// Explicit copy to fp register. See
+ 			// https://go.dev/issue/70451.
+ 			gfp := s.newValue1(ssaop.OpAMD64MOVQi2f, types.TypeInt128, g)
++			mask := s.newValue1(ssaop.OpAMD64PMOVMSKB, types.Types[types.TUINT64], gfp)
+ 
+-			// Construct a "byte mask": each output bit is equal to
+-			// the sign bit each input byte. The sign bit is only
+-			// set for empty or deleted slots.
+-			//
+-			// This results in a packed output (bit N set means
+-			// byte N matched).
+-			//
+-			// NOTE: See comment above on bitsetFirst.
+-			ret := s.newValue1(ssaop.OpAMD64PMOVMSKB, types.Types[types.TUINT64], gfp)
+-
+-			// g is only 64-bits so the upper 64-bits of the
+-			// 128-bit register will be zero. Zero will never match
+-			// ctrlEmpty or ctrlDeleted, so no need to truncate.
+-
+-			return ret
++			// The upper eight bytes of gfp are zero, so the mask has
++			// only eight bits. Invert those bits with a single XOR.
++			allSlots := s.constInt64(types.Types[types.TUINT64], 0xff)
++			return s.newValue2(ssaop.OpXor64, types.Types[types.TUINT64], mask, allSlots)
+ 		},
+ 		sys.AMD64)
+ 
+ 	addF("internal/runtime/maps", "ctrlGroupMatchFull",
+ 		func(s *state, n *ir.CallExpr, args []*ssa.Value) *ssa.Value {
+-			// An empty slot is   1000 0000
+-			// A deleted slot is  1111 1110
+-			// A full slot is     0??? ????
+-			//
+-			// A slot is full iff bit 7 (sign bit) is unset.
+-
++			// A slot is full iff its sign bit is set.
+ 			g := args[0]
+ 
+ 			// Explicit copy to fp register. See
+ 			// https://go.dev/issue/70451.
+ 			gfp := s.newValue1(ssaop.OpAMD64MOVQi2f, types.TypeInt128, g)
+ 
+-			// Construct a "byte mask": each output bit is equal to
+-			// the sign bit each input byte. The sign bit is only
+-			// set for empty or deleted slots.
+-			//
+-			// This results in a packed output (bit N set means
+-			// byte N matched).
+-			//
+-			// NOTE: See comment above on bitsetFirst.
+-			mask := s.newValue1(ssaop.OpAMD64PMOVMSKB, types.Types[types.TUINT8], gfp)
+-
+-			// Invert the mask to set the bits for the full slots.
+-			out := s.newValue1(ssaop.OpCom8, types.Types[types.TUINT8], mask)
+-
+-			// g is only 64-bits so the upper 64-bits of the
+-			// 128-bit register will be zero, with bit 7 unset.
+-			// Truncate the upper bits to ignore these.
+-			return s.newValue1(ssaop.OpZeroExt8to64, types.Types[types.TUINT64], out)
++			// The upper eight bytes of gfp are zero and cannot match.
++			return s.newValue1(ssaop.OpAMD64PMOVMSKB, types.Types[types.TUINT64], gfp)
+ 		},
+ 		sys.AMD64)
+ 
+diff --git a/src/cmd/compile/internal/walk/builtin.go b/src/cmd/compile/internal/walk/builtin.go
+index f41e6b7b..126052de 100644
+--- a/src/cmd/compile/internal/walk/builtin.go
++++ b/src/cmd/compile/internal/walk/builtin.go
+@@ -341,7 +341,6 @@ func (w *walkState) walkMakeMap(n *ir.MakeExpr, init *ir.Nodes) ir.Node {
+ 			// if hint <= abi.MapGroupSlots {
+ 			//     var gv group
+ 			//     g = &gv
+-			//     g.ctrl = abi.MapCtrlEmpty
+ 			//     m.dirPtr = g
+ 			// }
+ 
+@@ -354,15 +353,6 @@ func (w *walkState) walkMakeMap(n *ir.MakeExpr, init *ir.Nodes) ir.Node {
+ 			// g = &gv
+ 			g := w.stackTempAddr(&nif.Body, groupType)
+ 
+-			// Can't use ir.NewInt because bit 63 is set, which
+-			// makes conversion to uint64 upset.
+-			empty := ir.NewBasicLit(base.Pos, types.UntypedInt, constant.MakeUint64(abi.MapCtrlEmpty))
+-
+-			// g.ctrl = abi.MapCtrlEmpty
+-			csym := groupType.Field(0).Sym // g.ctrl see reflectdata/map.go
+-			ca := ir.NewAssignStmt(base.Pos, ir.NewSelectorExpr(base.Pos, ir.ODOT, g, csym), empty)
+-			nif.Body.Append(ca)
+-
+ 			// m.dirPtr = g
+ 			dsym := mapType.Field(2).Sym // m.dirPtr see reflectdata/map.go
+ 			na := ir.NewAssignStmt(base.Pos, ir.NewSelectorExpr(base.Pos, ir.ODOT, m, dsym), typecheck.ConvNop(w.curfunc, g, types.Types[types.TUNSAFEPTR]))
+diff --git a/src/internal/abi/map.go b/src/internal/abi/map.go
+index 520c615b..201307be 100644
+--- a/src/internal/abi/map.go
++++ b/src/internal/abi/map.go
+@@ -21,12 +21,6 @@ const (
+ 	// Must fit in a uint8.
+ 	MapMaxKeyBytes  = 128
+ 	MapMaxElemBytes = 128
+-
+-	ctrlEmpty = 0b10000000
+-	bitsetLSB = 0x0101010101010101
+-
+-	// Value of control word with all empty slots.
+-	MapCtrlEmpty = bitsetLSB * uint64(ctrlEmpty)
+ )
+ 
+ type MapType struct {
+diff --git a/src/internal/runtime/maps/ctrl_test.go b/src/internal/runtime/maps/ctrl_test.go
+new file mode 100644
+index 00000000..de2e0a0b
+--- /dev/null
++++ b/src/internal/runtime/maps/ctrl_test.go
+@@ -0,0 +1,148 @@
++// Copyright 2026 The Go Authors. All rights reserved.
++// Use of this source code is governed by a BSD-style
++// license that can be found in the LICENSE file.
++
++package maps_test
++
++import (
++	"internal/abi"
++	"internal/runtime/maps"
++	"runtime"
++	"testing"
++)
++
++func TestCtrlGroupZeroEmpty(t *testing.T) {
++	for _, portable := range []bool{false, true} {
++		got := ctrlGroupMasks(t, 0, 0, portable)
++		if got != [4]uint8{0, 0xff, 0xff, 0} {
++			t.Errorf("zero control word, portable=%v: got masks %x, want [00 ff ff 00]", portable, got)
++		}
++	}
++	if maps.CtrlGroupAnyFull(0) {
++		t.Error("zero control word contains full slots")
++	}
++	if got := maps.CtrlGroupSetEmpty(^maps.CtrlGroup(0)); got != 0 {
++		t.Errorf("setEmpty: got %#x, want zero", got)
++	}
++}
++
++func TestCtrlGroupAccess(t *testing.T) {
++	for slot := uintptr(0); slot < abi.MapGroupSlots; slot++ {
++		for value := uint16(0); value < 256; value++ {
++			before := maps.CtrlGroup(0x123456789abcdef0)
++			got, read := maps.CtrlGroupSet(before, slot, uint8(value))
++			shift := slot * 8
++			want := before&^(maps.CtrlGroup(0xff)<<shift) | maps.CtrlGroup(value)<<shift
++			if got != want || read != uint8(value) {
++				t.Fatalf("slot %d value %#x: group=%#x read=%#x, want group=%#x", slot, value, got, read, want)
++			}
++		}
++	}
++}
++
++func TestH2ControlByte(t *testing.T) {
++	for _, high := range []uintptr{0, 1 << 8, 1 << 16, ^uintptr(0) &^ 0xff} {
++		for low := uintptr(0); low < 256; low++ {
++			hash := high | low
++			got := uint8(maps.H2(hash))
++			want := uint8(low&0x7f) | 0x80
++			if got != want {
++				t.Fatalf("h2(%#x) = %#x, want %#x", hash, got, want)
++			}
++		}
++	}
++}
++
++// Adjacent full slots exercise the byte-subtraction borrow in the generic
++// matcher. Empty and deleted slots must never be returned as hash matches.
++func TestCtrlGroupMatchers(t *testing.T) {
++	states := []uint8{uint8(maps.CtrlEmpty), uint8(maps.CtrlDeleted)}
++	for hash := uintptr(0); hash < 128; hash++ {
++		states = append(states, uint8(maps.H2(hash)))
++	}
++	for _, portable := range []bool{false, true} {
++		for slot := uintptr(0); slot < abi.MapGroupSlots-1; slot++ {
++			for _, first := range states {
++				for _, second := range states {
++					var group maps.CtrlGroup
++					for i := uintptr(0); i < abi.MapGroupSlots; i++ {
++						group |= maps.CtrlGroup(maps.CtrlEmpty) << (8 * i)
++					}
++					group &^= maps.CtrlGroup(0xffff) << (8 * slot)
++					group |= maps.CtrlGroup(first)<<uint(8*slot) | maps.CtrlGroup(second)<<uint(8*(slot+1))
++					checkCtrlGroup(t, group, portable)
++				}
++			}
++		}
++		for hash := uintptr(0); hash < 128; hash++ {
++			var repeated, alternating maps.CtrlGroup
++			for slot := uintptr(0); slot < abi.MapGroupSlots; slot++ {
++				repeated |= maps.CtrlGroup(maps.H2(hash)) << (8 * slot)
++				alternating |= maps.CtrlGroup(maps.H2(hash^(slot&1))) << (8 * slot)
++			}
++			checkCtrlGroup(t, repeated, portable)
++			checkCtrlGroup(t, alternating, portable)
++		}
++	}
++}
++
++func checkCtrlGroup(t *testing.T, group maps.CtrlGroup, portable bool) {
++	var empty, emptyOrDeleted, full uint8
++	var hashes [128]uint8
++	for slot := uintptr(0); slot < abi.MapGroupSlots; slot++ {
++		control := uint8(group >> (8 * slot))
++		bit := uint8(1) << slot
++		switch control {
++		case uint8(maps.CtrlEmpty):
++			empty |= bit
++			emptyOrDeleted |= bit
++		case uint8(maps.CtrlDeleted):
++			emptyOrDeleted |= bit
++		default:
++			full |= bit
++			hashes[control&0x7f] |= bit
++		}
++	}
++	if got := maps.CtrlGroupAnyFull(group); got != (full != 0) {
++		t.Fatalf("group=%#x anyFull=%v, want %v", group, got, full != 0)
++	}
++	for hash := uintptr(0); hash < 128; hash++ {
++		got := ctrlGroupMasks(t, group, hash, portable)
++		if got[1] != empty || got[2] != emptyOrDeleted || got[3] != full {
++			t.Fatalf("group=%#x hash=%#x portable=%v: state masks=%x, want [%02x %02x %02x]", group, hash, portable, got[1:], empty, emptyOrDeleted, full)
++		}
++		want := hashes[hash]
++		if got[0]&want != want || got[0]&emptyOrDeleted != 0 || (want == 0 && got[0] != 0) {
++			t.Fatalf("group=%#x hash=%#x portable=%v: hash mask=%02x, required=%02x excluded=%02x", group, hash, portable, got[0], want, emptyOrDeleted)
++		}
++		// The ARM64 arithmetic matcher and AMD64 intrinsic are exact.
++		if (runtime.GOARCH == "arm64" || (maps.BitsetIsPacked() && !portable)) && got[0] != want {
++			t.Fatalf("group=%#x hash=%#x portable=%v: exact hash mask=%02x, want %02x", group, hash, portable, got[0], want)
++		}
++	}
++}
++
++// Convert both packed intrinsic results and byte-wise portable results
++// into one bit per slot so that the expected masks are architecture independent.
++func ctrlGroupMasks(t *testing.T, group maps.CtrlGroup, hash uintptr, portable bool) [4]uint8 {
++	matches := maps.CtrlGroupMatch(group, maps.H2(hash), portable)
++	var masks [4]uint8
++	for i, match := range matches {
++		if maps.BitsetIsPacked() && !portable {
++			if match&^uint64(0xff) != 0 {
++				t.Fatalf("group=%#x hash=%#x matcher=%d: packed mask=%#x has bits outside the group", group, hash, i, match)
++			}
++			masks[i] = uint8(match)
++			continue
++		}
++		if match&^uint64(0x8080808080808080) != 0 {
++			t.Fatalf("group=%#x hash=%#x matcher=%d portable=%v: byte-wise mask=%#x has bits outside slot markers", group, hash, i, portable, match)
++		}
++		for slot := uintptr(0); slot < abi.MapGroupSlots; slot++ {
++			if match&(uint64(0x80)<<(8*slot)) != 0 {
++				masks[i] |= uint8(1) << slot
++			}
++		}
++	}
++	return masks
++}
+diff --git a/src/internal/runtime/maps/export_test.go b/src/internal/runtime/maps/export_test.go
+index cf1f7b21..d3f834a7 100644
+--- a/src/internal/runtime/maps/export_test.go
++++ b/src/internal/runtime/maps/export_test.go
+@@ -11,6 +11,49 @@ import (
+ 
+ type CtrlGroup = ctrlGroup
+ 
++// Bit 7 denotes slot 7 in a packed mask and slot 0 in a byte-wise mask.
++func BitsetIsPacked() bool { return bitsetFirst(1<<7) == 7 }
++
++const CtrlEmpty = ctrlEmpty
++const CtrlDeleted = ctrlDeleted
++
++var H2 = h2
++
++// Function values keep these calls out of the compiler's intrinsic path.
++var ctrlMatchH2Portable = ctrlGroupMatchH2
++var ctrlMatchEmptyPortable = ctrlGroupMatchEmpty
++var ctrlMatchEmptyOrDeletedPortable = ctrlGroupMatchEmptyOrDeleted
++var ctrlMatchFullPortable = ctrlGroupMatchFull
++
++func CtrlGroupMatch(g CtrlGroup, h ctrl, portable bool) [4]uint64 {
++	if portable {
++		return [4]uint64{
++			uint64(ctrlMatchH2Portable(g, h)),
++			uint64(ctrlMatchEmptyPortable(g)),
++			uint64(ctrlMatchEmptyOrDeletedPortable(g)),
++			uint64(ctrlMatchFullPortable(g)),
++		}
++	}
++	return [4]uint64{
++		uint64(g.matchH2(h)),
++		uint64(g.matchEmpty()),
++		uint64(g.matchEmptyOrDeleted()),
++		uint64(g.matchFull()),
++	}
++}
++
++func CtrlGroupAnyFull(g CtrlGroup) bool { return g.anyFull() }
++
++func CtrlGroupSetEmpty(g CtrlGroup) CtrlGroup {
++	g.setEmpty()
++	return g
++}
++
++func CtrlGroupSet(g CtrlGroup, i uintptr, c uint8) (CtrlGroup, uint8) {
++	g.set(i, ctrl(c))
++	return g, uint8(g.get(i))
++}
++
+ const DebugLog = debugLog
+ 
+ var AlignUpPow2 = alignUpPow2
+diff --git a/src/internal/runtime/maps/group.go b/src/internal/runtime/maps/group.go
+index 2ce4550b..496efddc 100644
+--- a/src/internal/runtime/maps/group.go
++++ b/src/internal/runtime/maps/group.go
+@@ -19,8 +19,9 @@ const (
+ 	// slot. We may want to reevaluate if this is best for us.
+ 	maxAvgGroupLoad = 7
+ 
+-	ctrlEmpty   ctrl = 0b10000000
+-	ctrlDeleted ctrl = 0b11111110
++	ctrlEmpty   ctrl = 0b00000000
++	ctrlDeleted ctrl = 0b01111110
++	ctrlFull    ctrl = 0b10000000
+ 
+ 	bitsetLSB   = 0x0101010101010101
+ 	bitsetMSB   = 0x8080808080808080
+@@ -115,11 +116,9 @@ func (b bitset) count() int {
+ // Each slot in the hash table has a control byte which can have one of three
+ // states: empty, deleted, and full. They have the following bit patterns:
+ //
+-//	  empty: 1 0 0 0 0 0 0 0
+-//	deleted: 1 1 1 1 1 1 1 0
+-//	   full: 0 h h h h h h h  // h represents the H2 hash bits
+-//
+-// TODO(prattmic): Consider inverting the top bit so that the zero value is empty.
++//	  empty: 0 0 0 0 0 0 0 0
++//	deleted: 0 1 1 1 1 1 1 0
++//	   full: 1 h h h h h h h  // h represents the H2 hash bits
+ type ctrl uint8
+ 
+ // ctrlGroup is a fixed size array of abi.MapGroupSlots control bytes
+@@ -148,9 +147,9 @@ func (g *ctrlGroup) setEmpty() {
+ 	*g = ctrlGroup(bitsetEmpty)
+ }
+ 
+-// matchH2 returns the set of slots which are full and for which the 7-bit hash
+-// matches the given value. May return false positives.
+-func (g ctrlGroup) matchH2(h uintptr) bitset {
++// matchH2 returns the set of slots which match the occupied control byte
++// returned by h2. May return false positives.
++func (g ctrlGroup) matchH2(h ctrl) bitset {
+ 	return ctrlGroupMatchH2(g, h)
+ }
+ 
+@@ -158,15 +157,15 @@ func (g ctrlGroup) matchH2(h uintptr) bitset {
+ //
+ // Note: On AMD64, this is an intrinsic implemented with SIMD instructions. See
+ // note on bitset about the packed intrinsified return value.
+-func ctrlGroupMatchH2(g ctrlGroup, h uintptr) bitset {
++func ctrlGroupMatchH2(g ctrlGroup, h ctrl) bitset {
+ 	v := uint64(g) ^ (bitsetLSB * uint64(h))
+ 	if goarch.IsArm64 == 1 {
+ 		v = ^v
+ 		return bitset((v&bitsetL7B + bitsetLSB) & (v & bitsetMSB))
+ 	}
+-	// NB: This generic matching routine produces false positive matches when
+-	// h is 2^N and the control bytes have a seq of 2^N followed by 2^N+1. For
+-	// example: if ctrls==0x0302 and h=02, we'll compute v as 0x0100. When we
++	// NB: This generic matching routine can produce a false positive when a
++	// matching control byte is followed by that byte XOR 1. For example, if
++	// ctrls==0x8382 and h=0x82, we'll compute v as 0x0100. When we
+ 	// subtract off 0x0101 the first 2 bytes we'll become 0xffff and both be
+ 	// considered matches of h. The false positive matches are not a problem,
+ 	// just a rare inefficiency. Note that they only occur if there is a real
+@@ -185,14 +184,14 @@ func (g ctrlGroup) matchEmpty() bitset {
+ // Note: On AMD64, this is an intrinsic implemented with SIMD instructions. See
+ // note on bitset about the packed intrinsified return value.
+ func ctrlGroupMatchEmpty(g ctrlGroup) bitset {
+-	// An empty slot is   1000 0000
+-	// A deleted slot is  1111 1110
+-	// A full slot is     0??? ????
++	// An empty slot is   0000 0000
++	// A deleted slot is  0111 1110
++	// A full slot is     1??? ????
+ 	//
+-	// A slot is empty iff bit 7 is set and bit 1 is not. We could select any
++	// A slot is empty iff bits 7 and 1 are clear. We could select any
+ 	// of the other bits here (e.g. v << 1 would also work).
+ 	v := uint64(g)
+-	return bitset((v &^ (v << 6)) & bitsetMSB)
++	return bitset(^(v | (v << 6)) & bitsetMSB)
+ }
+ 
+ // matchEmptyOrDeleted returns the set of slots in the group that are empty or
+@@ -206,13 +205,13 @@ func (g ctrlGroup) matchEmptyOrDeleted() bitset {
+ // Note: On AMD64, this is an intrinsic implemented with SIMD instructions. See
+ // note on bitset about the packed intrinsified return value.
+ func ctrlGroupMatchEmptyOrDeleted(g ctrlGroup) bitset {
+-	// An empty slot is  1000 0000
+-	// A deleted slot is 1111 1110
+-	// A full slot is    0??? ????
++	// An empty slot is  0000 0000
++	// A deleted slot is 0111 1110
++	// A full slot is    1??? ????
+ 	//
+-	// A slot is empty or deleted iff bit 7 is set.
++	// A slot is empty or deleted iff bit 7 is clear.
+ 	v := uint64(g)
+-	return bitset(v & bitsetMSB)
++	return bitset(^v & bitsetMSB)
+ }
+ 
+ // matchFull returns the set of slots in the group that are full.
+@@ -222,8 +221,8 @@ func (g ctrlGroup) matchFull() bitset {
+ 
+ // anyFull reports whether any slots in the group are full.
+ func (g ctrlGroup) anyFull() bool {
+-	// A slot is full iff bit 7 is unset. Test whether any slot has bit 7 unset.
+-	return (^g)&bitsetMSB != 0
++	// A slot is full iff bit 7 is set.
++	return g&bitsetMSB != 0
+ }
+ 
+ // Portable implementation of matchFull.
+@@ -231,13 +230,13 @@ func (g ctrlGroup) anyFull() bool {
+ // Note: On AMD64, this is an intrinsic implemented with SIMD instructions. See
+ // note on bitset about the packed intrinsified return value.
+ func ctrlGroupMatchFull(g ctrlGroup) bitset {
+-	// An empty slot is  1000 0000
+-	// A deleted slot is 1111 1110
+-	// A full slot is    0??? ????
++	// An empty slot is  0000 0000
++	// A deleted slot is 0111 1110
++	// A full slot is    1??? ????
+ 	//
+-	// A slot is full iff bit 7 is unset.
++	// A slot is full iff bit 7 is set.
+ 	v := uint64(g)
+-	return bitset(^v & bitsetMSB)
++	return bitset(v & bitsetMSB)
+ }
+ 
+ // groupReference is a wrapper type representing a single slot group stored at
+diff --git a/src/internal/runtime/maps/map.go b/src/internal/runtime/maps/map.go
+index a1e26035..0118d2eb 100644
+--- a/src/internal/runtime/maps/map.go
++++ b/src/internal/runtime/maps/map.go
+@@ -203,11 +203,10 @@ func h1(h uintptr) uintptr {
+ 	return h >> 7
+ }
+ 
+-// Extracts the H2 portion of a hash: the 7 bits not used for h1.
+-//
+-// These are used as an occupied control byte.
+-func h2(h uintptr) uintptr {
+-	return h & 0x7f
++// Extracts the H2 portion of a hash, the 7 bits not used for h1, and sets
++// the full bit to produce an occupied control byte.
++func h2(h uintptr) ctrl {
++	return ctrl(h) | ctrlFull
+ }
+ 
+ // Note: changes here must be reflected in cmd/compile/internal/reflectdata/map.go:MapType.
+@@ -470,7 +469,7 @@ func (m *Map) growTo(typ *abi.MapType, dirSize uint64, targetCapacity uintptr) {
+ 		base := uintptr(oldIndex) << orders
+ 		mask := uintptr(1)<<(newGlobalDepth-oldDepth) - 1
+ 		for j := uintptr(0); j < abi.MapGroupSlots; j++ {
+-			if (g.ctrls().get(j) & ctrlEmpty) == ctrlEmpty {
++			if (g.ctrls().get(j) & ctrlFull) == 0 {
+ 				// Empty or deleted.
+ 				continue
+ 			}
+@@ -791,11 +790,6 @@ func (m *Map) putSlotSmall(typ *abi.MapType, hash uintptr, key unsafe.Pointer) u
+ func (m *Map) growToSmall(typ *abi.MapType) {
+ 	grp := newGroups(typ, 1)
+ 	m.dirPtr = grp.data
+-
+-	g := groupReference{
+-		data: m.dirPtr,
+-	}
+-	g.ctrls().setEmpty()
+ }
+ 
+ func (m *Map) growToTable(typ *abi.MapType) *table {
+@@ -806,7 +800,7 @@ func (m *Map) growToTable(typ *abi.MapType) *table {
+ 	}
+ 
+ 	for i := uintptr(0); i < abi.MapGroupSlots; i++ {
+-		if (g.ctrls().get(i) & ctrlEmpty) == ctrlEmpty {
++		if (g.ctrls().get(i) & ctrlFull) == 0 {
+ 			// Empty
+ 			continue
+ 		}
+@@ -970,7 +964,6 @@ func (m *Map) clearSmall(typ *abi.MapType) {
+ 	}
+ 
+ 	typedmemclr(typ.Group, g.data)
+-	g.ctrls().setEmpty()
+ 
+ 	m.used = 0
+ }
+diff --git a/src/internal/runtime/maps/runtime_fast64.go b/src/internal/runtime/maps/runtime_fast64.go
+index 081615e6..5c44d1e4 100644
+--- a/src/internal/runtime/maps/runtime_fast64.go
++++ b/src/internal/runtime/maps/runtime_fast64.go
+@@ -126,16 +126,14 @@ func (m *Map) putSlotSmallFast64(typ *abi.MapType, hash uintptr, key uint64) uns
+ 		match = match.removeFirst()
+ 	}
+ 
+-	// There can't be deleted slots, small maps can't have them
+-	// (see deleteSmall). Use matchEmptyOrDeleted as it is a bit
+-	// more efficient than matchEmpty.
+-	match = g.ctrls().matchEmptyOrDeleted()
+-	if match == 0 {
++	// Small maps have no deleted slots (see deleteSmall).
++	empty := ^uint64(*g.ctrls()) & bitsetMSB
++	if empty == 0 {
+ 		// No empty slot found. Need to grow the map.
+ 		return nil
+ 	}
+ 
+-	i := match.first()
++	i := uintptr(sys.TrailingZeros64(empty)) >> 3
+ 
+ 	slotKey := g.key(typ, i)
+ 	*(*uint64)(slotKey) = key
+diff --git a/src/internal/runtime/maps/runtime_faststr.go b/src/internal/runtime/maps/runtime_faststr.go
+index 8cedccc7..a3ec0c40 100644
+--- a/src/internal/runtime/maps/runtime_faststr.go
++++ b/src/internal/runtime/maps/runtime_faststr.go
+@@ -35,7 +35,7 @@ func (m *Map) getWithoutKeySmallFastStr(typ *abi.MapType, key string) unsafe.Poi
+ 		// String hashing and equality might be expensive. Do a quick check first.
+ 		j := abi.MapGroupSlots
+ 		for i := range abi.MapGroupSlots {
+-			if ctrls&(1<<7) == 0 && longStringQuickEqualityTest(key, *(*string)(slotKey)) {
++			if ctrls&(1<<7) != 0 && longStringQuickEqualityTest(key, *(*string)(slotKey)) {
+ 				if j < abi.MapGroupSlots {
+ 					// 2 strings both passed the quick equality test.
+ 					// Break out of this loop and do it the slow way.
+diff --git a/src/internal/runtime/maps/table.go b/src/internal/runtime/maps/table.go
+index 59c5a85f..33636e97 100644
+--- a/src/internal/runtime/maps/table.go
++++ b/src/internal/runtime/maps/table.go
+@@ -104,11 +104,6 @@ func (t *table) reset(typ *abi.MapType, capacity uint16) {
+ 	t.groups = newGroups(typ, groupCount)
+ 	t.capacity = capacity
+ 	t.growthLeft = t.maxGrowthLeft()
+-
+-	for i := uint64(0); i <= t.groups.lengthMask; i++ {
+-		g := t.groups.group(typ, i)
+-		g.ctrls().setEmpty()
+-	}
+ }
+ 
+ // maxGrowthLeft is the number of inserts we can do before
+@@ -694,7 +689,6 @@ func (t *table) Clear(typ *abi.MapType) {
+ 		for i := uint64(0); i <= t.groups.lengthMask; i++ {
+ 			g := t.groups.group(typ, i)
+ 			typedmemclr(typ.Group, g.data)
+-			g.ctrls().setEmpty()
+ 		}
+ 	}
+ 	t.used = 0
+@@ -888,7 +882,7 @@ func (it *Iter) Next() {
+ 		for ; it.entryIdx < abi.MapGroupSlots; it.entryIdx++ {
+ 			k := uintptr(it.entryIdx+it.entryOffset) % abi.MapGroupSlots
+ 
+-			if (it.group.ctrls().get(k) & ctrlEmpty) == ctrlEmpty {
++			if (it.group.ctrls().get(k) & ctrlFull) == 0 {
+ 				// Empty or deleted.
+ 				continue
+ 			}
+@@ -1033,7 +1027,7 @@ func (it *Iter) Next() {
+ 			it.group = it.tab.groups.group(it.typ, groupIdx)
+ 		}
+ 
+-		if (it.group.ctrls().get(slotIdx) & ctrlEmpty) == 0 {
++		if (it.group.ctrls().get(slotIdx) & ctrlFull) != 0 {
+ 			// Slot full.
+ 
+ 			key := it.group.key(it.typ, slotIdx)
+@@ -1253,7 +1247,7 @@ func (t *table) split(typ *abi.MapType, m *Map) {
+ 	for i := uint64(0); i <= t.groups.lengthMask; i++ {
+ 		g := t.groups.group(typ, i)
+ 		for j := uintptr(0); j < abi.MapGroupSlots; j++ {
+-			if (g.ctrls().get(j) & ctrlEmpty) == ctrlEmpty {
++			if (g.ctrls().get(j) & ctrlFull) == 0 {
+ 				// Empty or deleted
+ 				continue
+ 			}
+@@ -1294,7 +1288,7 @@ func (t *table) grow(typ *abi.MapType, m *Map, newCapacity uint16) {
+ 		for i := uint64(0); i <= t.groups.lengthMask; i++ {
+ 			g := t.groups.group(typ, i)
+ 			for j := uintptr(0); j < abi.MapGroupSlots; j++ {
+-				if (g.ctrls().get(j) & ctrlEmpty) == ctrlEmpty {
++				if (g.ctrls().get(j) & ctrlFull) == 0 {
+ 					// Empty or deleted
+ 					continue
+ 				}
+diff --git a/src/runtime/runtime-gdb.py b/src/runtime/runtime-gdb.py
+index a56711e0..0134eff4 100644
+--- a/src/runtime/runtime-gdb.py
++++ b/src/runtime/runtime-gdb.py
+@@ -165,6 +165,7 @@ class MapTypePrinter:
+ 
+ 	def children(self):
+ 		MapGroupSlots = 8 # see internal/abi:MapGroupSlots
++		ctrl_empty = read_runtime_const("'internal/runtime/maps.ctrlEmpty'", 0x80)
+ 
+ 		cnt = 0
+ 		# Yield keys and elements in group.
+@@ -178,7 +179,7 @@ class MapTypePrinter:
+ 
+ 			for i in xrange(MapGroupSlots):
+ 				c = (ctrl >> (8*i)) & 0xff
+-				if (c & 0x80) != 0:
++				if (c & 0x80) == ctrl_empty:
+ 					# Empty or deleted
+ 					continue
+ 

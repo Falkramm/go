@@ -1,0 +1,4324 @@
+{
+  "source_revision": "ddc6bf091828c267719f2a3b504460f8a1d2866e",
+  "production_patch_sha256": "153cd2a14c8f9d619861fc820936540ac95b00f9990264e755e9de657d74621c",
+  "full_patch_sha256": "3972d28a4b25633f6b499a07be57bc5eb269de23179485bd8f76d2bf4c7293a0",
+  "main_workloads": 80,
+  "main_observations": 960,
+  "targeted_workloads": 6,
+  "targeted_observations": 120,
+  "environment": {
+    "GOMAXPROCS": "1",
+    "GOGC": "100",
+    "GOMEMLIMIT": "off",
+    "GODEBUG": ""
+  },
+  "cpu_affinity": [
+    2
+  ],
+  "main_cpu": {
+    "commands": 72,
+    "elapsed_seconds": 701.3536871968536,
+    "weighted_cpu2_steal_percent": 20.193758893791955,
+    "maximum_command_cpu2_steal_percent": 27.78745644599303
+  },
+  "targeted_cpu": {
+    "commands": 24,
+    "elapsed_seconds": 181.2188011428807,
+    "weighted_cpu2_steal_percent": 25.015266751790374,
+    "maximum_command_cpu2_steal_percent": 29.232995658465992
+  },
+  "native386": {
+    "processes": 20,
+    "iterations_per_process": 20000000,
+    "cpu": {
+      "commands": 20,
+      "elapsed_seconds": 147.9543579275487,
+      "weighted_cpu2_steal_percent": 24.498946939330118,
+      "maximum_command_cpu2_steal_percent": 27.827191867852605
+    },
+    "comparisons": [
+      {
+        "phase": "native386",
+        "suite": "StackUint64Six",
+        "package": null,
+        "name": "BenchmarkFixedStackUint64Six/process_cpu",
+        "baseline_ns": 379.573225,
+        "patched_ns": 360.36975,
+        "change_percent": -5.059228031692687,
+        "baseline_ci": "3%",
+        "patched_ci": "5%",
+        "p_value": 0.002,
+        "comparison": "-5.06%"
+      },
+      {
+        "phase": "native386",
+        "suite": "StackUint64Six",
+        "package": null,
+        "name": "BenchmarkFixedStackUint64Six/process_wall",
+        "baseline_ns": 379.7315545495,
+        "patched_ns": 360.4535809485,
+        "change_percent": -5.076737334581183,
+        "baseline_ci": "3%",
+        "patched_ci": "4%",
+        "p_value": 0.002,
+        "comparison": "-5.08%"
+      },
+      {
+        "phase": "native386",
+        "suite": "StackUint64Six",
+        "package": null,
+        "name": "BenchmarkFixedStackUint64Six/benchmark_wall",
+        "baseline_ns": 379.1,
+        "patched_ns": 359.45,
+        "change_percent": -5.183328936955956,
+        "baseline_ci": "3%",
+        "patched_ci": "4%",
+        "p_value": 0.001,
+        "comparison": "-5.18%"
+      }
+    ],
+    "startup_harness": [
+      "Process CPU is the RUSAGE_CHILDREN user plus system delta for one complete process.",
+      "Process CPU and wall measurements include startup, testing harness, and finalization.",
+      "Three empty-harness processes per variant diagnose overhead. They are reported separately.",
+      "Benchmark wall ns/op is the testing package measurement for exactly 20,000,000 iterations.",
+      "Process CPU and wall values retain the full startup and harness cost."
+    ],
+    "summaries": {
+      "baseline": {
+        "process_cpu_ns_per_iteration": {
+          "median": 379.573225,
+          "min": 362.5853499999997,
+          "max": 395.02520000000015
+        },
+        "process_wall_ns_per_iteration": {
+          "median": 379.7315545496531,
+          "min": 362.65678940108046,
+          "max": 395.1276751526166
+        },
+        "benchmark_wall_ns_per_iteration": {
+          "median": 379.1,
+          "min": 362.3,
+          "max": 394.9
+        },
+        "empty_harness_cpu_seconds_median": 0.005498
+      },
+      "patched": {
+        "process_cpu_ns_per_iteration": {
+          "median": 360.36974999999984,
+          "min": 329.0241500000001,
+          "max": 376.68040000000093
+        },
+        "process_wall_ns_per_iteration": {
+          "median": 360.4535809485242,
+          "min": 329.10849030013196,
+          "max": 376.7609901551623
+        },
+        "benchmark_wall_ns_per_iteration": {
+          "median": 359.45,
+          "min": 328.7,
+          "max": 376.3
+        },
+        "empty_harness_cpu_seconds_median": 0.008973000000000002
+      }
+    }
+  },
+  "followups": {
+    "StringShort": {
+      "processes": 20,
+      "iterations_per_process": 20000000,
+      "cpu": {
+        "commands": 20,
+        "elapsed_seconds": 73.47660690383054,
+        "weighted_cpu2_steal_percent": 24.86612659618289,
+        "maximum_command_cpu2_steal_percent": 32.41206030150754
+      },
+      "comparisons": [
+        {
+          "phase": "followup",
+          "suite": "StringShort",
+          "package": null,
+          "name": "BenchmarkFixedStackStringShort/process_cpu",
+          "baseline_ns": 183.87,
+          "patched_ns": 182.44084999999998,
+          "change_percent": -0.7772611083918135,
+          "baseline_ci": "5%",
+          "patched_ci": "5%",
+          "p_value": 0.912,
+          "comparison": "~"
+        },
+        {
+          "phase": "followup",
+          "suite": "StringShort",
+          "package": null,
+          "name": "BenchmarkFixedStackStringShort/process_wall",
+          "baseline_ns": 183.92623947300004,
+          "patched_ns": 182.55471509800003,
+          "change_percent": -0.7456926096732097,
+          "baseline_ci": "5%",
+          "patched_ci": "5%",
+          "p_value": 0.971,
+          "comparison": "~"
+        },
+        {
+          "phase": "followup",
+          "suite": "StringShort",
+          "package": null,
+          "name": "BenchmarkFixedStackStringShort/benchmark_wall",
+          "baseline_ns": 183.4,
+          "patched_ns": 182.05,
+          "change_percent": -0.7360959651036003,
+          "baseline_ci": "5%",
+          "patched_ci": "5%",
+          "p_value": 0.869,
+          "comparison": "~"
+        }
+      ],
+      "startup_harness": [
+        "Process CPU is the RUSAGE_CHILDREN user plus system delta for one complete process.",
+        "Process CPU and wall measurements include startup, testing harness, and finalization.",
+        "Three empty-harness processes per variant diagnose overhead. They are reported separately.",
+        "Benchmark wall ns/op is the testing package measurement for exactly 20,000,000 iterations.",
+        "Process CPU and wall values retain the full startup and harness cost."
+      ],
+      "summaries": {
+        "baseline": {
+          "process_cpu_ns_per_iteration": {
+            "median": 183.87000000000003,
+            "min": 174.7727,
+            "max": 200.81060000000014
+          },
+          "process_wall_ns_per_iteration": {
+            "median": 183.92623947293032,
+            "min": 174.81621059705503,
+            "max": 200.90923404786736
+          },
+          "benchmark_wall_ns_per_iteration": {
+            "median": 183.4,
+            "min": 174.4,
+            "max": 200.3
+          },
+          "empty_harness_cpu_seconds_median": 0.009327999999999989
+        },
+        "patched": {
+          "process_cpu_ns_per_iteration": {
+            "median": 182.44085,
+            "min": 166.48364999999998,
+            "max": 200.07195000000007
+          },
+          "process_wall_ns_per_iteration": {
+            "median": 182.55471509764902,
+            "min": 166.54786510043778,
+            "max": 200.12554095010273
+          },
+          "benchmark_wall_ns_per_iteration": {
+            "median": 182.05,
+            "min": 166.1,
+            "max": 199.6
+          },
+          "empty_harness_cpu_seconds_median": 0.008850999999999998
+        }
+      }
+    },
+    "Uint64Eight": {
+      "processes": 20,
+      "iterations_per_process": 20000000,
+      "cpu": {
+        "commands": 20,
+        "elapsed_seconds": 71.99008770089131,
+        "weighted_cpu2_steal_percent": 26.03757711721817,
+        "maximum_command_cpu2_steal_percent": 30.36649214659686
+      },
+      "comparisons": [
+        {
+          "phase": "followup",
+          "suite": "Uint64Eight",
+          "package": null,
+          "name": "BenchmarkFixedStackUint64Eight/process_cpu",
+          "baseline_ns": 183.35850000000002,
+          "patched_ns": 178.33587500000002,
+          "change_percent": -2.7392376137457486,
+          "baseline_ci": "5%",
+          "patched_ci": "5%",
+          "p_value": 0.052,
+          "comparison": "~"
+        },
+        {
+          "phase": "followup",
+          "suite": "Uint64Eight",
+          "package": null,
+          "name": "BenchmarkFixedStackUint64Eight/process_wall",
+          "baseline_ns": 183.44289722450003,
+          "patched_ns": 178.3924670245,
+          "change_percent": -2.753134777313959,
+          "baseline_ci": "5%",
+          "patched_ci": "5%",
+          "p_value": 0.052,
+          "comparison": "~"
+        },
+        {
+          "phase": "followup",
+          "suite": "Uint64Eight",
+          "package": null,
+          "name": "BenchmarkFixedStackUint64Eight/benchmark_wall",
+          "baseline_ns": 182.9,
+          "patched_ns": 177.90000000000003,
+          "change_percent": -2.7337342810278664,
+          "baseline_ci": "5%",
+          "patched_ci": "5%",
+          "p_value": 0.063,
+          "comparison": "~"
+        }
+      ],
+      "startup_harness": [
+        "Process CPU is the RUSAGE_CHILDREN user plus system delta for one complete process.",
+        "Process CPU and wall measurements include startup, testing harness, and finalization.",
+        "Three empty-harness processes per variant diagnose overhead. They are reported separately.",
+        "Benchmark wall ns/op is the testing package measurement for exactly 20,000,000 iterations.",
+        "Process CPU and wall values retain the full startup and harness cost."
+      ],
+      "summaries": {
+        "baseline": {
+          "process_cpu_ns_per_iteration": {
+            "median": 183.35849999999994,
+            "min": 171.31069999999997,
+            "max": 194.0323
+          },
+          "process_wall_ns_per_iteration": {
+            "median": 183.44289722444955,
+            "min": 171.35380095569417,
+            "max": 194.11652344861068
+          },
+          "benchmark_wall_ns_per_iteration": {
+            "median": 182.89999999999998,
+            "min": 170.9,
+            "max": 193.3
+          },
+          "empty_harness_cpu_seconds_median": 0.0070869999999999995
+        },
+        "patched": {
+          "process_cpu_ns_per_iteration": {
+            "median": 178.33587499999982,
+            "min": 164.41074999999992,
+            "max": 182.11995000000013
+          },
+          "process_wall_ns_per_iteration": {
+            "median": 178.39246702496894,
+            "min": 164.49101055040956,
+            "max": 182.22139999852516
+          },
+          "benchmark_wall_ns_per_iteration": {
+            "median": 177.9,
+            "min": 164.0,
+            "max": 181.7
+          },
+          "empty_harness_cpu_seconds_median": 0.006010000000000015
+        }
+      }
+    }
+  },
+  "observations": [
+    {
+      "phase": "main",
+      "suite": "v3-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/U64U64/Size=65536/Make",
+      "baseline_ns": 670567.5,
+      "patched_ns": 670444.5,
+      "change_percent": -0.018342672437898777,
+      "baseline_ci": "14%",
+      "patched_ci": "14%",
+      "p_value": 0.699,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/StringValue64/Size=65536/Make",
+      "baseline_ns": 5869836.0,
+      "patched_ns": 3557710.5,
+      "change_percent": -39.38995058805732,
+      "baseline_ci": "21%",
+      "patched_ci": "19%",
+      "p_value": 0.002,
+      "comparison": "-39.39%"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/Key32Value256/Size=65536/Make",
+      "baseline_ns": 3215609.5,
+      "patched_ns": 1687819.5,
+      "change_percent": -47.51167702421578,
+      "baseline_ci": "10%",
+      "patched_ci": "26%",
+      "p_value": 0.002,
+      "comparison": "-47.51%"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/Grow",
+      "baseline_ns": 562046.0000000001,
+      "patched_ns": 551446.0,
+      "change_percent": -1.8859666290659716,
+      "baseline_ci": "9%",
+      "patched_ci": "33%",
+      "p_value": 0.699,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/Update",
+      "baseline_ns": 18.994999999999997,
+      "patched_ns": 19.384999999999998,
+      "change_percent": 2.0531718873387783,
+      "baseline_ci": "13%",
+      "patched_ci": "7%",
+      "p_value": 0.937,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/DeleteInsert",
+      "baseline_ns": 68.86,
+      "patched_ns": 64.885,
+      "change_percent": -5.772582050537311,
+      "baseline_ci": "10%",
+      "patched_ci": "17%",
+      "p_value": 0.485,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Grow",
+      "baseline_ns": 1428992.0,
+      "patched_ns": 1444546.0,
+      "change_percent": 1.0884595575062717,
+      "baseline_ci": "13%",
+      "patched_ci": "64%",
+      "p_value": 0.818,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Update",
+      "baseline_ns": 48.645,
+      "patched_ns": 44.68,
+      "change_percent": -8.150889094459867,
+      "baseline_ci": "17%",
+      "patched_ci": "12%",
+      "p_value": 0.394,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/DeleteInsert",
+      "baseline_ns": 114.95,
+      "patched_ns": 114.95,
+      "change_percent": 0.0,
+      "baseline_ci": "11%",
+      "patched_ci": "11%",
+      "p_value": 0.937,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/Grow",
+      "baseline_ns": 1887830.5000000002,
+      "patched_ns": 1793678.5,
+      "change_percent": -4.987312155408031,
+      "baseline_ci": "17%",
+      "patched_ci": "16%",
+      "p_value": 0.394,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/Update",
+      "baseline_ns": 80.43500000000002,
+      "patched_ns": 76.38,
+      "change_percent": -5.041337726114281,
+      "baseline_ci": "18%",
+      "patched_ci": "6%",
+      "p_value": 0.18,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/DeleteInsert",
+      "baseline_ns": 339.85,
+      "patched_ns": 340.7,
+      "change_percent": 0.25011034279829314,
+      "baseline_ci": "9%",
+      "patched_ci": "7%",
+      "p_value": 0.937,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=0",
+      "baseline_ns": 15.13,
+      "patched_ns": 16.165,
+      "change_percent": 6.840713813615329,
+      "baseline_ci": "15%",
+      "patched_ci": "6%",
+      "p_value": 0.42,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=100",
+      "baseline_ns": 15.705,
+      "patched_ns": 16.225,
+      "change_percent": 3.311047437121939,
+      "baseline_ci": "11%",
+      "patched_ci": "10%",
+      "p_value": 0.225,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=0",
+      "baseline_ns": 25.075000000000003,
+      "patched_ns": 22.295,
+      "change_percent": -11.086739780658029,
+      "baseline_ci": "24%",
+      "patched_ci": "8%",
+      "p_value": 0.065,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=100",
+      "baseline_ns": 27.8,
+      "patched_ns": 26.175,
+      "change_percent": -5.845323741007191,
+      "baseline_ci": "12%",
+      "patched_ci": "8%",
+      "p_value": 0.18,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=0",
+      "baseline_ns": 35.215,
+      "patched_ns": 33.795,
+      "change_percent": -4.032372568507747,
+      "baseline_ci": "12%",
+      "patched_ci": "10%",
+      "p_value": 0.485,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=100",
+      "baseline_ns": 56.345000000000006,
+      "patched_ns": 56.105,
+      "change_percent": -0.4259472890229987,
+      "baseline_ci": "21%",
+      "patched_ci": "10%",
+      "p_value": 0.818,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/U64U64/Size=0/Make",
+      "baseline_ns": 87.545,
+      "patched_ns": 81.93,
+      "change_percent": -6.413844308641259,
+      "baseline_ci": "20%",
+      "patched_ci": "14%",
+      "p_value": 0.394,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-runtime",
+      "package": "runtime",
+      "name": "BenchmarkMapAccessHit/Key=int64/Elem=int64/len=12",
+      "baseline_ns": 26.835,
+      "patched_ns": 26.695,
+      "change_percent": -0.5217067262902941,
+      "baseline_ci": "12%",
+      "patched_ci": "8%",
+      "p_value": 0.729,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-runtime",
+      "package": "runtime",
+      "name": "BenchmarkMapAccessHit/Key=string/Elem=string/len=12",
+      "baseline_ns": 36.080000000000005,
+      "patched_ns": 33.26,
+      "change_percent": -7.8159645232816155,
+      "baseline_ci": "12%",
+      "patched_ci": "21%",
+      "p_value": 0.394,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-runtime",
+      "package": "runtime",
+      "name": "BenchmarkMapAccessMiss/Key=int64/Elem=int64/len=12",
+      "baseline_ns": 28.970000000000002,
+      "patched_ns": 27.46,
+      "change_percent": -5.212288574387303,
+      "baseline_ci": "19%",
+      "patched_ci": "12%",
+      "p_value": 0.31,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-runtime",
+      "package": "runtime",
+      "name": "BenchmarkMapAccessMiss/Key=string/Elem=string/len=12",
+      "baseline_ns": 30.415,
+      "patched_ns": 29.77,
+      "change_percent": -2.1206641459805997,
+      "baseline_ci": "12%",
+      "patched_ci": "16%",
+      "p_value": 0.699,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-runtime",
+      "package": "runtime",
+      "name": "BenchmarkMapAssignExists/Key=int64/Elem=int64/len=12",
+      "baseline_ns": 29.365000000000002,
+      "patched_ns": 28.275,
+      "change_percent": -3.7119019240592688,
+      "baseline_ci": "18%",
+      "patched_ci": "10%",
+      "p_value": 0.699,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-runtime",
+      "package": "runtime",
+      "name": "BenchmarkMapAssignExists/Key=string/Elem=string/len=12",
+      "baseline_ns": 37.965,
+      "patched_ns": 40.385,
+      "change_percent": 6.374292111154989,
+      "baseline_ci": "11%",
+      "patched_ci": "10%",
+      "p_value": 0.18,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-runtime",
+      "package": "runtime",
+      "name": "BenchmarkMapDelete/Key=int64/Elem=int64/len=12",
+      "baseline_ns": 100.18,
+      "patched_ns": 91.94000000000001,
+      "change_percent": -8.225194649630662,
+      "baseline_ci": "9%",
+      "patched_ci": "9%",
+      "p_value": 0.015,
+      "comparison": "-8.23%"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-runtime",
+      "package": "runtime",
+      "name": "BenchmarkMapDelete/Key=string/Elem=string/len=12",
+      "baseline_ns": 122.75000000000001,
+      "patched_ns": 111.95,
+      "change_percent": -8.798370672097766,
+      "baseline_ci": "18%",
+      "patched_ci": "19%",
+      "p_value": 0.065,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-runtime",
+      "package": "runtime",
+      "name": "BenchmarkMapStringKeysEight_16",
+      "baseline_ns": 17.35,
+      "patched_ns": 17.090000000000003,
+      "change_percent": -1.4985590778097913,
+      "baseline_ci": "33%",
+      "patched_ci": "8%",
+      "p_value": 0.937,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-runtime",
+      "package": "runtime",
+      "name": "BenchmarkMapStringKeysEight_128",
+      "baseline_ns": 15.145000000000001,
+      "patched_ns": 15.115,
+      "change_percent": -0.1980851766259617,
+      "baseline_ci": "19%",
+      "patched_ci": "14%",
+      "p_value": 0.937,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v3-runtime",
+      "package": "runtime",
+      "name": "BenchmarkMapCycle",
+      "baseline_ns": 31.625,
+      "patched_ns": 30.035000000000004,
+      "change_percent": -5.02766798418971,
+      "baseline_ci": "13%",
+      "patched_ci": "14%",
+      "p_value": 0.132,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/U64U64/Size=65536/Make",
+      "baseline_ns": 689770.5000000001,
+      "patched_ns": 635214.5,
+      "change_percent": -7.909297367747692,
+      "baseline_ci": "14%",
+      "patched_ci": "25%",
+      "p_value": 0.026,
+      "comparison": "-7.91%"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/StringValue64/Size=65536/Make",
+      "baseline_ns": 6068059.5,
+      "patched_ns": 3899700.0000000005,
+      "change_percent": -35.73398546932507,
+      "baseline_ci": "8%",
+      "patched_ci": "34%",
+      "p_value": 0.002,
+      "comparison": "-35.73%"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/Key32Value256/Size=65536/Make",
+      "baseline_ns": 3154775.5,
+      "patched_ns": 1867226.0,
+      "change_percent": -40.81271393162525,
+      "baseline_ci": "12%",
+      "patched_ci": "27%",
+      "p_value": 0.002,
+      "comparison": "-40.81%"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/Grow",
+      "baseline_ns": 543418.5,
+      "patched_ns": 541558.5000000001,
+      "change_percent": -0.3422776368489311,
+      "baseline_ci": "18%",
+      "patched_ci": "4%",
+      "p_value": 0.818,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/Update",
+      "baseline_ns": 18.575,
+      "patched_ns": 19.285000000000004,
+      "change_percent": 3.822341857335143,
+      "baseline_ci": "23%",
+      "patched_ci": "11%",
+      "p_value": 0.937,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/DeleteInsert",
+      "baseline_ns": 70.94,
+      "patched_ns": 71.58000000000001,
+      "change_percent": 0.9021708486044666,
+      "baseline_ci": "11%",
+      "patched_ci": "8%",
+      "p_value": 0.937,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Grow",
+      "baseline_ns": 1393471.0,
+      "patched_ns": 1433636.5,
+      "change_percent": 2.882406594755116,
+      "baseline_ci": "24%",
+      "patched_ci": "13%",
+      "p_value": 0.394,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Update",
+      "baseline_ns": 47.29,
+      "patched_ns": 43.2,
+      "change_percent": -8.6487629519983,
+      "baseline_ci": "12%",
+      "patched_ci": "10%",
+      "p_value": 0.041,
+      "comparison": "-8.65%"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/DeleteInsert",
+      "baseline_ns": 111.60000000000002,
+      "patched_ns": 110.20000000000002,
+      "change_percent": -1.2544802867383575,
+      "baseline_ci": "6%",
+      "patched_ci": "5%",
+      "p_value": 0.937,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/Grow",
+      "baseline_ns": 1821411.0000000002,
+      "patched_ns": 1931141.0000000002,
+      "change_percent": 6.024450275088933,
+      "baseline_ci": "22%",
+      "patched_ci": "12%",
+      "p_value": 0.065,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/Update",
+      "baseline_ns": 79.96500000000002,
+      "patched_ns": 74.04,
+      "change_percent": -7.409491652598021,
+      "baseline_ci": "7%",
+      "patched_ci": "12%",
+      "p_value": 0.041,
+      "comparison": "-7.41%"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/DeleteInsert",
+      "baseline_ns": 325.7,
+      "patched_ns": 348.1,
+      "change_percent": 6.877494626957326,
+      "baseline_ci": "24%",
+      "patched_ci": "8%",
+      "p_value": 0.394,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=0",
+      "baseline_ns": 17.255,
+      "patched_ns": 16.775,
+      "change_percent": -2.781802376122866,
+      "baseline_ci": "19%",
+      "patched_ci": "33%",
+      "p_value": 0.589,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=100",
+      "baseline_ns": 17.605,
+      "patched_ns": 17.255,
+      "change_percent": -1.988071570576544,
+      "baseline_ci": "12%",
+      "patched_ci": "5%",
+      "p_value": 0.623,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=0",
+      "baseline_ns": 25.845000000000002,
+      "patched_ns": 24.345000000000002,
+      "change_percent": -5.803830528148579,
+      "baseline_ci": "8%",
+      "patched_ci": "7%",
+      "p_value": 0.041,
+      "comparison": "-5.80%"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=100",
+      "baseline_ns": 26.755000000000003,
+      "patched_ns": 27.930000000000007,
+      "change_percent": 4.391702485516746,
+      "baseline_ci": "9%",
+      "patched_ci": "7%",
+      "p_value": 0.132,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=0",
+      "baseline_ns": 33.43,
+      "patched_ns": 34.335,
+      "change_percent": 2.7071492671253417,
+      "baseline_ci": "5%",
+      "patched_ci": "6%",
+      "p_value": 0.818,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=100",
+      "baseline_ns": 55.24,
+      "patched_ns": 57.910000000000004,
+      "change_percent": 4.833454018826933,
+      "baseline_ci": "8%",
+      "patched_ci": "6%",
+      "p_value": 0.31,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/U64U64/Size=0/Make",
+      "baseline_ns": 88.15,
+      "patched_ns": 88.26,
+      "change_percent": 0.12478729438456515,
+      "baseline_ci": "21%",
+      "patched_ci": "11%",
+      "p_value": 0.485,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-runtime",
+      "package": "runtime",
+      "name": "BenchmarkMapAccessHit/Key=int64/Elem=int64/len=12",
+      "baseline_ns": 26.715,
+      "patched_ns": 25.505000000000003,
+      "change_percent": -4.52929066067751,
+      "baseline_ci": "15%",
+      "patched_ci": "19%",
+      "p_value": 0.24,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-runtime",
+      "package": "runtime",
+      "name": "BenchmarkMapAccessHit/Key=string/Elem=string/len=12",
+      "baseline_ns": 34.67000000000001,
+      "patched_ns": 35.47500000000001,
+      "change_percent": 2.32189212575713,
+      "baseline_ci": "16%",
+      "patched_ci": "9%",
+      "p_value": 0.331,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-runtime",
+      "package": "runtime",
+      "name": "BenchmarkMapAccessMiss/Key=int64/Elem=int64/len=12",
+      "baseline_ns": 27.925,
+      "patched_ns": 26.410000000000004,
+      "change_percent": -5.425246195165611,
+      "baseline_ci": "9%",
+      "patched_ci": "13%",
+      "p_value": 0.18,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-runtime",
+      "package": "runtime",
+      "name": "BenchmarkMapAccessMiss/Key=string/Elem=string/len=12",
+      "baseline_ns": 31.955000000000005,
+      "patched_ns": 34.865,
+      "change_percent": 9.106556094507901,
+      "baseline_ci": "12%",
+      "patched_ci": "13%",
+      "p_value": 0.132,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-runtime",
+      "package": "runtime",
+      "name": "BenchmarkMapAssignExists/Key=int64/Elem=int64/len=12",
+      "baseline_ns": 29.065,
+      "patched_ns": 29.680000000000003,
+      "change_percent": 2.1159470153105264,
+      "baseline_ci": "12%",
+      "patched_ci": "13%",
+      "p_value": 0.699,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-runtime",
+      "package": "runtime",
+      "name": "BenchmarkMapAssignExists/Key=string/Elem=string/len=12",
+      "baseline_ns": 40.05500000000001,
+      "patched_ns": 36.21000000000001,
+      "change_percent": -9.59930096117837,
+      "baseline_ci": "11%",
+      "patched_ci": "10%",
+      "p_value": 0.041,
+      "comparison": "-9.60%"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-runtime",
+      "package": "runtime",
+      "name": "BenchmarkMapDelete/Key=int64/Elem=int64/len=12",
+      "baseline_ns": 98.735,
+      "patched_ns": 92.355,
+      "change_percent": -6.461741023953005,
+      "baseline_ci": "19%",
+      "patched_ci": "8%",
+      "p_value": 0.24,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-runtime",
+      "package": "runtime",
+      "name": "BenchmarkMapDelete/Key=string/Elem=string/len=12",
+      "baseline_ns": 116.4,
+      "patched_ns": 121.05000000000001,
+      "change_percent": 3.9948453608247503,
+      "baseline_ci": "8%",
+      "patched_ci": "11%",
+      "p_value": 0.18,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-runtime",
+      "package": "runtime",
+      "name": "BenchmarkMapStringKeysEight_16",
+      "baseline_ns": 22.580000000000002,
+      "patched_ns": 20.5,
+      "change_percent": -9.211691762621799,
+      "baseline_ci": "16%",
+      "patched_ci": "6%",
+      "p_value": 0.093,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-runtime",
+      "package": "runtime",
+      "name": "BenchmarkMapStringKeysEight_128",
+      "baseline_ns": 14.685,
+      "patched_ns": 14.860000000000001,
+      "change_percent": 1.191692202928163,
+      "baseline_ci": "12%",
+      "patched_ci": "26%",
+      "p_value": 0.394,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "nomapsplitgroup-v1-runtime",
+      "package": "runtime",
+      "name": "BenchmarkMapCycle",
+      "baseline_ns": 31.180000000000007,
+      "patched_ns": 31.355000000000004,
+      "change_percent": 0.5612572161642015,
+      "baseline_ci": "13%",
+      "patched_ci": "20%",
+      "p_value": 0.699,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v4-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/U64U64/Size=65536/Make",
+      "baseline_ns": 654808.0,
+      "patched_ns": 675584.5000000001,
+      "change_percent": 3.172914808615679,
+      "baseline_ci": "16%",
+      "patched_ci": "15%",
+      "p_value": 0.818,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v4-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/StringValue64/Size=65536/Make",
+      "baseline_ns": 5905148.000000001,
+      "patched_ns": 3940466.500000001,
+      "change_percent": -33.27065638321004,
+      "baseline_ci": "9%",
+      "patched_ci": "30%",
+      "p_value": 0.002,
+      "comparison": "-33.27%"
+    },
+    {
+      "phase": "main",
+      "suite": "v4-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/Key32Value256/Size=65536/Make",
+      "baseline_ns": 3326424.5000000005,
+      "patched_ns": 2030756.0000000002,
+      "change_percent": -38.95078634732278,
+      "baseline_ci": "7%",
+      "patched_ci": "17%",
+      "p_value": 0.002,
+      "comparison": "-38.95%"
+    },
+    {
+      "phase": "main",
+      "suite": "v4-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=0",
+      "baseline_ns": 14.395000000000001,
+      "patched_ns": 15.63,
+      "change_percent": 8.579367836054175,
+      "baseline_ci": "19%",
+      "patched_ci": "10%",
+      "p_value": 0.31,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v4-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=100",
+      "baseline_ns": 16.83,
+      "patched_ns": 16.275,
+      "change_percent": -3.2976827094474137,
+      "baseline_ci": "16%",
+      "patched_ci": "6%",
+      "p_value": 0.24,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v4-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=0",
+      "baseline_ns": 22.005000000000003,
+      "patched_ns": 21.14,
+      "change_percent": -3.9309247898205,
+      "baseline_ci": "10%",
+      "patched_ci": "13%",
+      "p_value": 0.065,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v4-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=100",
+      "baseline_ns": 26.485000000000003,
+      "patched_ns": 26.11,
+      "change_percent": -1.4158957900698654,
+      "baseline_ci": "6%",
+      "patched_ci": "11%",
+      "p_value": 0.818,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v4-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=0",
+      "baseline_ns": 33.65500000000001,
+      "patched_ns": 34.085,
+      "change_percent": 1.2776704798692418,
+      "baseline_ci": "8%",
+      "patched_ci": "9%",
+      "p_value": 0.485,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "v4-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=100",
+      "baseline_ns": 55.905,
+      "patched_ns": 55.195,
+      "change_percent": -1.270011626867007,
+      "baseline_ci": "11%",
+      "patched_ci": "8%",
+      "p_value": 0.818,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "apps",
+      "package": "encoding/json",
+      "name": "BenchmarkMarshalMap",
+      "baseline_ns": 1542.0,
+      "patched_ns": 1569.5000000000002,
+      "change_percent": 1.7833981841764102,
+      "baseline_ci": "15%",
+      "patched_ci": "13%",
+      "p_value": 0.485,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "apps",
+      "package": "encoding/json",
+      "name": "BenchmarkUnmarshalMap",
+      "baseline_ns": 2156.5000000000005,
+      "patched_ns": 2402.5000000000005,
+      "change_percent": 11.407373058196146,
+      "baseline_ci": "23%",
+      "patched_ci": "12%",
+      "p_value": 0.31,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "apps",
+      "package": "go/parser",
+      "name": "BenchmarkParse",
+      "baseline_ns": 4966586.0,
+      "patched_ns": 5024043.5,
+      "change_percent": 1.1568812057215938,
+      "baseline_ci": "20%",
+      "patched_ci": "16%",
+      "p_value": 0.937,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "apps",
+      "package": "go/parser",
+      "name": "BenchmarkResolve",
+      "baseline_ns": 1358552.0000000002,
+      "patched_ns": 1432475.5,
+      "change_percent": 5.441344902513845,
+      "baseline_ci": "19%",
+      "patched_ci": "21%",
+      "p_value": 0.485,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "apps",
+      "package": "html/template",
+      "name": "BenchmarkEscapedExecutePage",
+      "baseline_ns": 71584.0,
+      "patched_ns": 75496.5,
+      "change_percent": 5.465606839517201,
+      "baseline_ci": "29%",
+      "patched_ci": "11%",
+      "p_value": 0.699,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "apps",
+      "package": "html/template",
+      "name": "BenchmarkTemplateSpecialTags",
+      "baseline_ns": 243559.50000000003,
+      "patched_ns": 248666.00000000003,
+      "change_percent": 2.0966129426279734,
+      "baseline_ci": "16%",
+      "patched_ci": "17%",
+      "p_value": 0.818,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "stack",
+      "package": null,
+      "name": "BenchmarkStackMap/Uint64One",
+      "baseline_ns": 39.87,
+      "patched_ns": 38.275000000000006,
+      "change_percent": -4.000501630298448,
+      "baseline_ci": "12%",
+      "patched_ci": "17%",
+      "p_value": 0.699,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "stack",
+      "package": null,
+      "name": "BenchmarkStackMap/Uint64Six",
+      "baseline_ns": 139.5,
+      "patched_ns": 131.95,
+      "change_percent": -5.412186379928318,
+      "baseline_ci": "14%",
+      "patched_ci": "25%",
+      "p_value": 0.485,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "stack",
+      "package": null,
+      "name": "BenchmarkStackMap/Uint64Eight",
+      "baseline_ns": 169.3,
+      "patched_ns": 180.8,
+      "change_percent": 6.792675723567632,
+      "baseline_ci": "9%",
+      "patched_ci": "8%",
+      "p_value": 0.132,
+      "comparison": "~"
+    },
+    {
+      "phase": "main",
+      "suite": "stack",
+      "package": null,
+      "name": "BenchmarkStackMap/StringShort",
+      "baseline_ns": 171.79999999999998,
+      "patched_ns": 194.05,
+      "change_percent": 12.95110593713622,
+      "baseline_ci": "13%",
+      "patched_ci": "17%",
+      "p_value": 0.041,
+      "comparison": "+12.95%"
+    },
+    {
+      "phase": "main",
+      "suite": "stack",
+      "package": null,
+      "name": "BenchmarkStackMap/StringLong",
+      "baseline_ns": 257.9,
+      "patched_ns": 257.6,
+      "change_percent": -0.11632415664984963,
+      "baseline_ci": "12%",
+      "patched_ci": "13%",
+      "p_value": 0.699,
+      "comparison": "~"
+    },
+    {
+      "phase": "targeted",
+      "suite": "case1-stack",
+      "package": null,
+      "name": "BenchmarkStackMap/Uint64Six",
+      "baseline_ns": 138.65,
+      "patched_ns": 138.8,
+      "change_percent": 0.10818608005769281,
+      "baseline_ci": "7%",
+      "patched_ci": "8%",
+      "p_value": 0.591,
+      "comparison": "~"
+    },
+    {
+      "phase": "targeted",
+      "suite": "case2-v3-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/Update",
+      "baseline_ns": 85.66000000000001,
+      "patched_ns": 87.955,
+      "change_percent": 2.6791968246556053,
+      "baseline_ci": "5%",
+      "patched_ci": "13%",
+      "p_value": 0.739,
+      "comparison": "~"
+    },
+    {
+      "phase": "targeted",
+      "suite": "case3-nomapsplitgroup-v1-runtime",
+      "package": "runtime",
+      "name": "BenchmarkMapStringKeysEight_16",
+      "baseline_ns": 23.915,
+      "patched_ns": 22.615000000000002,
+      "change_percent": -5.435918879364399,
+      "baseline_ci": "9%",
+      "patched_ci": "12%",
+      "p_value": 0.041,
+      "comparison": "-5.44%"
+    },
+    {
+      "phase": "targeted",
+      "suite": "case4-nomapsplitgroup-v1-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Update",
+      "baseline_ns": 46.870000000000005,
+      "patched_ns": 50.17,
+      "change_percent": 7.0407510134414375,
+      "baseline_ci": "14%",
+      "patched_ci": "12%",
+      "p_value": 0.579,
+      "comparison": "~"
+    },
+    {
+      "phase": "targeted",
+      "suite": "case5-apps",
+      "package": "encoding/json",
+      "name": "BenchmarkMarshalMap",
+      "baseline_ns": 1671.0000000000002,
+      "patched_ns": 1715.0,
+      "change_percent": 2.633153800119681,
+      "baseline_ci": "8%",
+      "patched_ci": "3%",
+      "p_value": 0.218,
+      "comparison": "~"
+    },
+    {
+      "phase": "targeted",
+      "suite": "case6-v3-custom",
+      "package": null,
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=100",
+      "baseline_ns": 29.155,
+      "patched_ns": 28.215,
+      "change_percent": -3.2241468015777763,
+      "baseline_ci": "10%",
+      "patched_ci": "4%",
+      "p_value": 0.404,
+      "comparison": "~"
+    }
+  ],
+  "allocation_observations": [
+    {
+      "suite": "v3-custom",
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/DeleteInsert",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 256.0,
+            "min": 256.0,
+            "max": 256.0
+          },
+          "patched": {
+            "median": 256.0,
+            "min": 256.0,
+            "max": 256.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 1.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "patched": {
+            "median": 1.0,
+            "min": 1.0,
+            "max": 1.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-custom",
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/Grow",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 1829864.0,
+            "min": 1829864.0,
+            "max": 1829864.0
+          },
+          "patched": {
+            "median": 1829864.0,
+            "min": 1829864.0,
+            "max": 1829864.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 4144.0,
+            "min": 4144.0,
+            "max": 4144.0
+          },
+          "patched": {
+            "median": 4144.0,
+            "min": 4144.0,
+            "max": 4144.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-custom",
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=0",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-custom",
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=100",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-custom",
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/Update",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-custom",
+      "name": "BenchmarkSwissMap/Key32Value256/Size=65536/Make",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 6296752.0,
+            "min": 6296752.0,
+            "max": 6296752.0
+          },
+          "patched": {
+            "median": 6296752.0,
+            "min": 6296752.0,
+            "max": 6296752.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 258.0,
+            "min": 258.0,
+            "max": 258.0
+          },
+          "patched": {
+            "median": 258.0,
+            "min": 258.0,
+            "max": 258.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-custom",
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/DeleteInsert",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-custom",
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Grow",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 1444488.0,
+            "min": 1444488.0,
+            "max": 1444488.0
+          },
+          "patched": {
+            "median": 1444488.0,
+            "min": 1444488.0,
+            "max": 1444488.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 48.0,
+            "min": 48.0,
+            "max": 48.0
+          },
+          "patched": {
+            "median": 48.0,
+            "min": 48.0,
+            "max": 48.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-custom",
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=0",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-custom",
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=100",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-custom",
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Update",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-custom",
+      "name": "BenchmarkSwissMap/StringValue64/Size=65536/Make",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 11539632.0,
+            "min": 11539632.0,
+            "max": 11539632.0
+          },
+          "patched": {
+            "median": 11539632.0,
+            "min": 11539632.0,
+            "max": 11539632.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 258.0,
+            "min": 258.0,
+            "max": 258.0
+          },
+          "patched": {
+            "median": 258.0,
+            "min": 258.0,
+            "max": 258.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-custom",
+      "name": "BenchmarkSwissMap/U64U64/Size=0/Make",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 48.0,
+            "min": 48.0,
+            "max": 48.0
+          },
+          "patched": {
+            "median": 48.0,
+            "min": 48.0,
+            "max": 48.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 1.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "patched": {
+            "median": 1.0,
+            "min": 1.0,
+            "max": 1.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-custom",
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/DeleteInsert",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-custom",
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/Grow",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 296120.0,
+            "min": 296120.0,
+            "max": 296120.0
+          },
+          "patched": {
+            "median": 296120.0,
+            "min": 296092.0,
+            "max": 296120.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 48.0,
+            "min": 48.0,
+            "max": 48.0
+          },
+          "patched": {
+            "median": 48.0,
+            "min": 47.0,
+            "max": 48.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": false,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-custom",
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=0",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-custom",
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=100",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-custom",
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/Update",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-custom",
+      "name": "BenchmarkSwissMap/U64U64/Size=65536/Make",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 2364592.0,
+            "min": 2364592.0,
+            "max": 2364592.0
+          },
+          "patched": {
+            "median": 2364592.0,
+            "min": 2364592.0,
+            "max": 2364592.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 258.0,
+            "min": 258.0,
+            "max": 258.0
+          },
+          "patched": {
+            "median": 258.0,
+            "min": 258.0,
+            "max": 258.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-runtime",
+      "name": "BenchmarkMapAccessHit/Key=int64/Elem=int64/len=12",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-runtime",
+      "name": "BenchmarkMapAccessHit/Key=string/Elem=string/len=12",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-runtime",
+      "name": "BenchmarkMapAccessMiss/Key=int64/Elem=int64/len=12",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-runtime",
+      "name": "BenchmarkMapAccessMiss/Key=string/Elem=string/len=12",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-runtime",
+      "name": "BenchmarkMapAssignExists/Key=int64/Elem=int64/len=12",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-runtime",
+      "name": "BenchmarkMapAssignExists/Key=string/Elem=string/len=12",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-runtime",
+      "name": "BenchmarkMapCycle",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-runtime",
+      "name": "BenchmarkMapDelete/Key=int64/Elem=int64/len=12",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-runtime",
+      "name": "BenchmarkMapDelete/Key=string/Elem=string/len=12",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-runtime",
+      "name": "BenchmarkMapStringKeysEight_128",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v3-runtime",
+      "name": "BenchmarkMapStringKeysEight_16",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-custom",
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/DeleteInsert",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 256.0,
+            "min": 256.0,
+            "max": 256.0
+          },
+          "patched": {
+            "median": 256.0,
+            "min": 256.0,
+            "max": 256.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 1.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "patched": {
+            "median": 1.0,
+            "min": 1.0,
+            "max": 1.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-custom",
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/Grow",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 1829864.0,
+            "min": 1829864.0,
+            "max": 1829864.0
+          },
+          "patched": {
+            "median": 1829864.0,
+            "min": 1829864.0,
+            "max": 1829864.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 4144.0,
+            "min": 4144.0,
+            "max": 4144.0
+          },
+          "patched": {
+            "median": 4144.0,
+            "min": 4144.0,
+            "max": 4144.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-custom",
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=0",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-custom",
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=100",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-custom",
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/Update",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-custom",
+      "name": "BenchmarkSwissMap/Key32Value256/Size=65536/Make",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 6296752.0,
+            "min": 6296752.0,
+            "max": 6296752.0
+          },
+          "patched": {
+            "median": 6296752.0,
+            "min": 6296752.0,
+            "max": 6296752.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 258.0,
+            "min": 258.0,
+            "max": 258.0
+          },
+          "patched": {
+            "median": 258.0,
+            "min": 258.0,
+            "max": 258.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-custom",
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/DeleteInsert",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-custom",
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Grow",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 1444488.0,
+            "min": 1444488.0,
+            "max": 1444488.0
+          },
+          "patched": {
+            "median": 1444488.0,
+            "min": 1444488.0,
+            "max": 1444488.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 48.0,
+            "min": 48.0,
+            "max": 48.0
+          },
+          "patched": {
+            "median": 48.0,
+            "min": 48.0,
+            "max": 48.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-custom",
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=0",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-custom",
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=100",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-custom",
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Update",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-custom",
+      "name": "BenchmarkSwissMap/StringValue64/Size=65536/Make",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 11539632.0,
+            "min": 11539632.0,
+            "max": 11539632.0
+          },
+          "patched": {
+            "median": 11539632.0,
+            "min": 11539632.0,
+            "max": 11539632.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 258.0,
+            "min": 258.0,
+            "max": 258.0
+          },
+          "patched": {
+            "median": 258.0,
+            "min": 258.0,
+            "max": 258.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-custom",
+      "name": "BenchmarkSwissMap/U64U64/Size=0/Make",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 48.0,
+            "min": 48.0,
+            "max": 48.0
+          },
+          "patched": {
+            "median": 48.0,
+            "min": 48.0,
+            "max": 48.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 1.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "patched": {
+            "median": 1.0,
+            "min": 1.0,
+            "max": 1.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-custom",
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/DeleteInsert",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-custom",
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/Grow",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 296120.0,
+            "min": 296120.0,
+            "max": 296120.0
+          },
+          "patched": {
+            "median": 296120.0,
+            "min": 296120.0,
+            "max": 296120.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 48.0,
+            "min": 48.0,
+            "max": 48.0
+          },
+          "patched": {
+            "median": 48.0,
+            "min": 48.0,
+            "max": 48.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-custom",
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=0",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-custom",
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=100",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-custom",
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/Update",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-custom",
+      "name": "BenchmarkSwissMap/U64U64/Size=65536/Make",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 2364592.0,
+            "min": 2364592.0,
+            "max": 2364592.0
+          },
+          "patched": {
+            "median": 2364592.0,
+            "min": 2364592.0,
+            "max": 2364592.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 258.0,
+            "min": 258.0,
+            "max": 258.0
+          },
+          "patched": {
+            "median": 258.0,
+            "min": 258.0,
+            "max": 258.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-runtime",
+      "name": "BenchmarkMapAccessHit/Key=int64/Elem=int64/len=12",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-runtime",
+      "name": "BenchmarkMapAccessHit/Key=string/Elem=string/len=12",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-runtime",
+      "name": "BenchmarkMapAccessMiss/Key=int64/Elem=int64/len=12",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-runtime",
+      "name": "BenchmarkMapAccessMiss/Key=string/Elem=string/len=12",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-runtime",
+      "name": "BenchmarkMapAssignExists/Key=int64/Elem=int64/len=12",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-runtime",
+      "name": "BenchmarkMapAssignExists/Key=string/Elem=string/len=12",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-runtime",
+      "name": "BenchmarkMapCycle",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-runtime",
+      "name": "BenchmarkMapDelete/Key=int64/Elem=int64/len=12",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-runtime",
+      "name": "BenchmarkMapDelete/Key=string/Elem=string/len=12",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-runtime",
+      "name": "BenchmarkMapStringKeysEight_128",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "nomapsplitgroup-v1-runtime",
+      "name": "BenchmarkMapStringKeysEight_16",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v4-custom",
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=0",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v4-custom",
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=100",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v4-custom",
+      "name": "BenchmarkSwissMap/Key32Value256/Size=65536/Make",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 6296752.0,
+            "min": 6296752.0,
+            "max": 6296752.0
+          },
+          "patched": {
+            "median": 6296752.0,
+            "min": 6296752.0,
+            "max": 6296752.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 258.0,
+            "min": 258.0,
+            "max": 258.0
+          },
+          "patched": {
+            "median": 258.0,
+            "min": 258.0,
+            "max": 258.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v4-custom",
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=0",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v4-custom",
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=100",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v4-custom",
+      "name": "BenchmarkSwissMap/StringValue64/Size=65536/Make",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 11539632.0,
+            "min": 11539632.0,
+            "max": 11539632.0
+          },
+          "patched": {
+            "median": 11539632.0,
+            "min": 11539632.0,
+            "max": 11539632.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 258.0,
+            "min": 258.0,
+            "max": 258.0
+          },
+          "patched": {
+            "median": 258.0,
+            "min": 258.0,
+            "max": 258.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v4-custom",
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=0",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v4-custom",
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=100",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "v4-custom",
+      "name": "BenchmarkSwissMap/U64U64/Size=65536/Make",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 2364592.0,
+            "min": 2364592.0,
+            "max": 2364592.0
+          },
+          "patched": {
+            "median": 2364592.0,
+            "min": 2364592.0,
+            "max": 2364592.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 258.0,
+            "min": 258.0,
+            "max": 258.0
+          },
+          "patched": {
+            "median": 258.0,
+            "min": 258.0,
+            "max": 258.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "apps",
+      "name": "BenchmarkEscapedExecutePage",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 8269.0,
+            "min": 8268.0,
+            "max": 8270.0
+          },
+          "patched": {
+            "median": 8269.0,
+            "min": 8268.0,
+            "max": 8269.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 427.0,
+            "min": 427.0,
+            "max": 427.0
+          },
+          "patched": {
+            "median": 427.0,
+            "min": 427.0,
+            "max": 427.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "apps",
+      "name": "BenchmarkMarshalMap",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 80.0,
+            "min": 80.0,
+            "max": 80.0
+          },
+          "patched": {
+            "median": 80.0,
+            "min": 80.0,
+            "max": 80.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 6.0,
+            "min": 6.0,
+            "max": 6.0
+          },
+          "patched": {
+            "median": 6.0,
+            "min": 6.0,
+            "max": 6.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "apps",
+      "name": "BenchmarkParse",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 678904.0,
+            "min": 678900.0,
+            "max": 678919.0
+          },
+          "patched": {
+            "median": 678908.5,
+            "min": 678899.0,
+            "max": 678938.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 19346.0,
+            "min": 19346.0,
+            "max": 19346.0
+          },
+          "patched": {
+            "median": 19346.0,
+            "min": 19346.0,
+            "max": 19346.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "apps",
+      "name": "BenchmarkResolve",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 128674.0,
+            "min": 128674.0,
+            "max": 128678.0
+          },
+          "patched": {
+            "median": 128674.0,
+            "min": 128673.0,
+            "max": 128677.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 2070.0,
+            "min": 2070.0,
+            "max": 2070.0
+          },
+          "patched": {
+            "median": 2070.0,
+            "min": 2070.0,
+            "max": 2070.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "apps",
+      "name": "BenchmarkTemplateSpecialTags",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 39772.0,
+            "min": 39770.0,
+            "max": 39776.0
+          },
+          "patched": {
+            "median": 39770.0,
+            "min": 39770.0,
+            "max": 39777.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 173.0,
+            "min": 173.0,
+            "max": 173.0
+          },
+          "patched": {
+            "median": 173.0,
+            "min": 173.0,
+            "max": 173.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "apps",
+      "name": "BenchmarkUnmarshalMap",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 104.0,
+            "min": 104.0,
+            "max": 104.0
+          },
+          "patched": {
+            "median": 104.0,
+            "min": 104.0,
+            "max": 104.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 8.0,
+            "min": 8.0,
+            "max": 8.0
+          },
+          "patched": {
+            "median": 8.0,
+            "min": 8.0,
+            "max": 8.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "stack",
+      "name": "BenchmarkStackMap/StringLong",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "stack",
+      "name": "BenchmarkStackMap/StringShort",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "stack",
+      "name": "BenchmarkStackMap/Uint64Eight",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "stack",
+      "name": "BenchmarkStackMap/Uint64One",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "stack",
+      "name": "BenchmarkStackMap/Uint64Six",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "case1-stack",
+      "name": "BenchmarkStackMap/Uint64Six",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "case2-v3-custom",
+      "name": "BenchmarkSwissMap/Key32Value256/Size=4096/Update",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "case3-nomapsplitgroup-v1-runtime",
+      "name": "BenchmarkMapStringKeysEight_16",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "case4-nomapsplitgroup-v1-custom",
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Update",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "case5-apps",
+      "name": "BenchmarkMarshalMap",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 80.0,
+            "min": 80.0,
+            "max": 80.0
+          },
+          "patched": {
+            "median": 80.0,
+            "min": 80.0,
+            "max": 80.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 6.0,
+            "min": 6.0,
+            "max": 6.0
+          },
+          "patched": {
+            "median": 6.0,
+            "min": 6.0,
+            "max": 6.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    },
+    {
+      "suite": "case6-v3-custom",
+      "name": "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=100",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "patched": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": true,
+      "allocation_medians_equal": true
+    }
+  ],
+  "allocation_sample_set_variations": [
+    {
+      "suite": "v3-custom",
+      "name": "BenchmarkSwissMap/U64U64/Size=4096/Grow",
+      "metrics": {
+        "B/op": {
+          "baseline": {
+            "median": 296120.0,
+            "min": 296120.0,
+            "max": 296120.0
+          },
+          "patched": {
+            "median": 296120.0,
+            "min": 296092.0,
+            "max": 296120.0
+          }
+        },
+        "allocs/op": {
+          "baseline": {
+            "median": 48.0,
+            "min": 48.0,
+            "max": 48.0
+          },
+          "patched": {
+            "median": 48.0,
+            "min": 47.0,
+            "max": 48.0
+          }
+        }
+      },
+      "allocation_sample_sets_equal": false,
+      "allocation_medians_equal": true
+    }
+  ],
+  "allocation_median_increase_signals": [],
+  "allocation_medians_equal": true,
+  "zero_allocation_contracts_pass": true,
+  "significant_slowdown_signals": [
+    {
+      "phase": "main",
+      "suite": "stack",
+      "package": null,
+      "name": "BenchmarkStackMap/StringShort",
+      "baseline_ns": 171.79999999999998,
+      "patched_ns": 194.05,
+      "change_percent": 12.95110593713622,
+      "baseline_ci": "13%",
+      "patched_ci": "17%",
+      "p_value": 0.041,
+      "comparison": "+12.95%"
+    }
+  ],
+  "significant_followup_slowdown_signals": [],
+  "cautions": [
+    "The 80-workload screening uses unadjusted per-workload hypothesis tests.",
+    "Broad intervals and VM CPU steal limit timing precision.",
+    "Broad intervals leave performance equivalence unresolved.",
+    "The six repeated workloads were fixed before the current main series using prior byte-H2 screening evidence.",
+    "StringShort and Uint64Eight fixed-work repeats were selected after the current main series.",
+    "One v3 U64 growth sample had 47 allocations/op, with every baseline sample and the five other patched samples at 48. Both medians were 48. Randomized map growth can vary counts.",
+    "Native timing covers Linux/amd64 and the additional linux/386 case."
+  ],
+  "schema_version": 1,
+  "platform": {
+    "goos": "linux",
+    "native_timing_architecture": "amd64",
+    "additional_native_architecture": "386",
+    "cpu": "Intel(R) Xeon(R) Gold 6238R CPU @ 2.20GHz",
+    "virtual_machine": true
+  },
+  "go_version": "go1.28-devel_ddc6bf09 Fri Nov 13 09:49:21 2026 -0800",
+  "bootstrap_go_version": "go1.27.4",
+  "modified_source_sha256": {
+    "src/cmd/compile/internal/ssagen/intrinsics.go": "6351974bd97152dbcec2e76f172a4703838e3135915d34c99bbf3feeab6346d3",
+    "src/cmd/compile/internal/walk/builtin.go": "35ee578c7827dfc32961dd7ab9d8a13e173e028481c7dc328d91346edb874022",
+    "src/internal/abi/map.go": "23f27c7991dfb212a53b2929bfb41c528f5090c492522c9bba9ccd02336101ec",
+    "src/internal/runtime/maps/export_test.go": "fdac4baf26e556034453d2b57b82be8c3ad2c797ee70f223548ad1b463d01f0a",
+    "src/internal/runtime/maps/group.go": "138f3b0f6e701ffeeb2d48109014f79e6f1dfd43fa1feabb7acdea809db8375c",
+    "src/internal/runtime/maps/map.go": "3a659262fc682dce637b170e6654552d21dee490ac206963ed88611625714db5",
+    "src/internal/runtime/maps/runtime_fast64.go": "5ba17f286872bdd6d781177d09af9b0cbeaf6d960a7773b99e4a25d3bc184eb2",
+    "src/internal/runtime/maps/runtime_faststr.go": "9f81e5d99b4f45b3a781175cee9b4180429ffb5c9aa1ab4028302bd31215f806",
+    "src/internal/runtime/maps/table.go": "0eed753e2a6d020c8acbc3c28af39ecd0c9d66c01cd07c999e569b8934268bba",
+    "src/runtime/runtime-gdb.py": "ad9f37ace4348da2cae3e2aff6c300014883c7b9c8e7e27811eb11133f62b414",
+    "src/internal/runtime/maps/ctrl_test.go": "e20a9d8376051038fee78f3f17c976e7398685e90f264ab1384f02be0186f40c"
+  },
+  "baseline_source_sha256": {
+    "src/cmd/compile/internal/ssagen/intrinsics.go": "900762cccad4658f2627e5e81e62c31ad1732f9ce33e22944d82ad7273f5fecb",
+    "src/cmd/compile/internal/walk/builtin.go": "ee03c6324ca5d5ec2a90f1f97ac2ee692dfebb5333b80b43d9c0c8ca3a931be7",
+    "src/internal/abi/map.go": "39edc7935b336065e2702a2f5c35a375e0cf6297b31e531d7928fe655dd03e77",
+    "src/internal/runtime/maps/export_test.go": "411a4e2bf31425a581e9cdc07f68108dd14cb6573bbeacbada1ba9828881453b",
+    "src/internal/runtime/maps/group.go": "d182d037f6dd8c78436feff4f33495f14a0237b8bd275608f42a9279ae854916",
+    "src/internal/runtime/maps/map.go": "98b3aeac62c6df92abe981e9880fb82195a971cefe4e281d2a937ab9031481c3",
+    "src/internal/runtime/maps/runtime_fast64.go": "b2866816e43bda0e1e95e5547a89c6ad2b95db450f10cfe01d1bf1583e779d8e",
+    "src/internal/runtime/maps/runtime_faststr.go": "7af690752c5848456e393812c396c8a7de88d4ebec257dadfddf4c5a14d9002e",
+    "src/internal/runtime/maps/table.go": "428772bd5cac322c142e387b4efd43feabc2d905dd14f5fbf798c458152a09db",
+    "src/runtime/runtime-gdb.py": "0e7033d4ee449c05a389bb06e2b87787d148386dc144a6385e5ff40b3f14f6da"
+  },
+  "probe_source_sha256": {
+    "probes/custom/map_benchmark_test.go": "ae8c7c3482f1ef794fa01c3123412982f56cc64f10aedf8150b59936d2ed0953",
+    "probes/stack/stack_test.go": "1805eb5ab5c4592073b9f56d5fc0714708cdfd02234fcc738f5c457b34a75e4f",
+    "probes/lifecycle/lifecycle_test.go": "24dc9a0934841559cd1360bc65e58227452b10579a8ca6d62e29e3f9611b1613"
+  },
+  "parser_fixture_sha256": {
+    "src/go/printer/nodes.go": "4fcf5ecb609d4a49df3b121672ca206d1893ed569c32eadc935adc45e2370c7a"
+  },
+  "tested_binary_sha256": {
+    "baseline": {
+      "custom-v3": "ae14af6cd130ce1a5c94a5353f459ea8568dfec25985e78fbd439298fe270bf7",
+      "custom-nomapsplitgroup-v1": "9b047574df67b8a967494cfd616ef25c75bb2681512e534cbd4ea1290ed28702",
+      "custom-v4": "9b82e2a08fc0bae2264698a9ea6f649ecbdb0e158f812cec9f1820edaf879d7a",
+      "runtime-v3": "ac8ee2d598578fdae1ea6d8657b0b654ac249fb6b78550d271c6b3e88760116c",
+      "runtime-nomapsplitgroup-v1": "46b44e7bda614716de9f201cfd35b63fc850a05b15935f41ab8c8e65d9c9393b",
+      "app-json": "880245fa595f7b795737712e97e9aa3d33de3dbce1d62afbaa3b20a29cfda90b",
+      "app-template": "4d5e7d031075dc7926724a62f895da262c49d5df87b63cc0067ab7494112779f",
+      "app-parser": "e5075011521be4d389d662a7156c1d691f9359ce09f322ade66a7aff2f77bce0",
+      "stack": "e5992e711fc3f85491e1af2c7f097bfbed32df14f2cd8bbc4cc82e9922b2300a"
+    },
+    "patched": {
+      "custom-v3": "0d678afb9810bfa52d520a668f2f6e791d75837fccc9472787530f3cc18d8b64",
+      "custom-nomapsplitgroup-v1": "1612ac1f54e47853d4a4b029188430b9a622cd8424e3a85b50fd2f95e1defc7f",
+      "custom-v4": "187a61894178cb0d7c4b0e469f50eff715349361ab89c5e8e45acd87315eba23",
+      "runtime-v3": "d00b2de1ca192e5649de5f3204c22d1cc1f02a53bebdfc2e89bea656033d6696",
+      "runtime-nomapsplitgroup-v1": "b345a3530a7177d357f78fca279259b0d7ec01c901cbbf929f32ff04e7963603",
+      "app-json": "8b8a4992db29cd71ea3c385b7521d413e7c0fec65f422b62a64e34553fd192ec",
+      "app-template": "72077b3a577e4819bf0101a72119be9a370316f331f6d3d0bf49fde247bc516f",
+      "app-parser": "5ba70074da2fdcc95c6a3ea10fa4c4991460fee0b42fc0cad98067092caf24de",
+      "stack": "7f8187e88a571ba95076851dffe3adc40aa1f2611ea0a89d2dafad93bd85e43d"
+    }
+  },
+  "raw_sample_transformation": "Benchmark lines and GoOS, GoArch, package, CPU headers are retained verbatim. Numeric observations preserve the recorded values. PASS and other non-data output are omitted."
+}

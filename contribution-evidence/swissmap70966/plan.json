@@ -1,0 +1,799 @@
+{
+  "schema_version": 1,
+  "tested_base": "ddc6bf091828c267719f2a3b504460f8a1d2866e",
+  "full_patch_sha256": "3972d28a4b25633f6b499a07be57bc5eb269de23179485bd8f76d2bf4c7293a0",
+  "environment": {
+    "GOMAXPROCS": "1",
+    "GOGC": "100",
+    "GOMEMLIMIT": "off",
+    "GODEBUG": ""
+  },
+  "cpu_affinity": [
+    2
+  ],
+  "main": {
+    "order": [
+      "baseline",
+      "patched",
+      "patched",
+      "baseline"
+    ],
+    "samples_per_batch": 3,
+    "samples_per_variant": 6,
+    "suites": [
+      {
+        "name": "v3-custom",
+        "expected_names": [
+          "BenchmarkSwissMap/Key32Value256/Size=4096/DeleteInsert",
+          "BenchmarkSwissMap/Key32Value256/Size=4096/Grow",
+          "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=0",
+          "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=100",
+          "BenchmarkSwissMap/Key32Value256/Size=4096/Update",
+          "BenchmarkSwissMap/Key32Value256/Size=65536/Make",
+          "BenchmarkSwissMap/StringValue64/Size=4096/DeleteInsert",
+          "BenchmarkSwissMap/StringValue64/Size=4096/Grow",
+          "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=0",
+          "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=100",
+          "BenchmarkSwissMap/StringValue64/Size=4096/Update",
+          "BenchmarkSwissMap/StringValue64/Size=65536/Make",
+          "BenchmarkSwissMap/U64U64/Size=0/Make",
+          "BenchmarkSwissMap/U64U64/Size=4096/DeleteInsert",
+          "BenchmarkSwissMap/U64U64/Size=4096/Grow",
+          "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=0",
+          "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=100",
+          "BenchmarkSwissMap/U64U64/Size=4096/Update",
+          "BenchmarkSwissMap/U64U64/Size=65536/Make"
+        ],
+        "runs": [
+          {
+            "pattern": "^BenchmarkSwissMap$/(U64U64|StringValue64|Key32Value256)$/Size=65536$/Make$",
+            "expected_names": [
+              "BenchmarkSwissMap/Key32Value256/Size=65536/Make",
+              "BenchmarkSwissMap/StringValue64/Size=65536/Make",
+              "BenchmarkSwissMap/U64U64/Size=65536/Make"
+            ],
+            "duration": "500ms",
+            "extra_arguments": [],
+            "artifact": "custom-v3"
+          },
+          {
+            "pattern": "^BenchmarkSwissMap$/(U64U64|StringValue64|Key32Value256)$/Size=4096$/(Grow|Update|DeleteInsert)$",
+            "expected_names": [
+              "BenchmarkSwissMap/Key32Value256/Size=4096/DeleteInsert",
+              "BenchmarkSwissMap/Key32Value256/Size=4096/Grow",
+              "BenchmarkSwissMap/Key32Value256/Size=4096/Update",
+              "BenchmarkSwissMap/StringValue64/Size=4096/DeleteInsert",
+              "BenchmarkSwissMap/StringValue64/Size=4096/Grow",
+              "BenchmarkSwissMap/StringValue64/Size=4096/Update",
+              "BenchmarkSwissMap/U64U64/Size=4096/DeleteInsert",
+              "BenchmarkSwissMap/U64U64/Size=4096/Grow",
+              "BenchmarkSwissMap/U64U64/Size=4096/Update"
+            ],
+            "duration": "500ms",
+            "extra_arguments": [],
+            "artifact": "custom-v3"
+          },
+          {
+            "pattern": "^BenchmarkSwissMap$/(U64U64|StringValue64|Key32Value256)$/Size=4096$/Lookup$/Hit=(0|100)$",
+            "expected_names": [
+              "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=0",
+              "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=100",
+              "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=0",
+              "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=100",
+              "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=0",
+              "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=100"
+            ],
+            "duration": "500ms",
+            "extra_arguments": [],
+            "artifact": "custom-v3"
+          },
+          {
+            "pattern": "^BenchmarkSwissMap$/U64U64$/Size=0$/Make$",
+            "expected_names": [
+              "BenchmarkSwissMap/U64U64/Size=0/Make"
+            ],
+            "duration": "500ms",
+            "extra_arguments": [],
+            "artifact": "custom-v3"
+          }
+        ],
+        "samples": {
+          "phase": "main",
+          "name": "v3-custom",
+          "baseline": "samples/main/v3-custom-baseline.txt",
+          "patched": "samples/main/v3-custom-patched.txt"
+        }
+      },
+      {
+        "name": "v3-runtime",
+        "expected_names": [
+          "BenchmarkMapAccessHit/Key=int64/Elem=int64/len=12",
+          "BenchmarkMapAccessHit/Key=string/Elem=string/len=12",
+          "BenchmarkMapAccessMiss/Key=int64/Elem=int64/len=12",
+          "BenchmarkMapAccessMiss/Key=string/Elem=string/len=12",
+          "BenchmarkMapAssignExists/Key=int64/Elem=int64/len=12",
+          "BenchmarkMapAssignExists/Key=string/Elem=string/len=12",
+          "BenchmarkMapCycle",
+          "BenchmarkMapDelete/Key=int64/Elem=int64/len=12",
+          "BenchmarkMapDelete/Key=string/Elem=string/len=12",
+          "BenchmarkMapStringKeysEight_128",
+          "BenchmarkMapStringKeysEight_16"
+        ],
+        "runs": [
+          {
+            "pattern": "^BenchmarkMap(AccessHit|AccessMiss|AssignExists|Delete)$/Key=(int64|string)$/Elem=(int64|string)$/len=12$",
+            "expected_names": [
+              "BenchmarkMapAccessHit/Key=int64/Elem=int64/len=12",
+              "BenchmarkMapAccessHit/Key=string/Elem=string/len=12",
+              "BenchmarkMapAccessMiss/Key=int64/Elem=int64/len=12",
+              "BenchmarkMapAccessMiss/Key=string/Elem=string/len=12",
+              "BenchmarkMapAssignExists/Key=int64/Elem=int64/len=12",
+              "BenchmarkMapAssignExists/Key=string/Elem=string/len=12",
+              "BenchmarkMapDelete/Key=int64/Elem=int64/len=12",
+              "BenchmarkMapDelete/Key=string/Elem=string/len=12"
+            ],
+            "duration": "300ms",
+            "extra_arguments": [
+              "-mapbench"
+            ],
+            "artifact": "runtime-v3"
+          },
+          {
+            "pattern": "^BenchmarkMap(Cycle|StringKeysEight_(16|128))$",
+            "expected_names": [
+              "BenchmarkMapCycle",
+              "BenchmarkMapStringKeysEight_128",
+              "BenchmarkMapStringKeysEight_16"
+            ],
+            "duration": "300ms",
+            "extra_arguments": [
+              "-mapbench"
+            ],
+            "artifact": "runtime-v3"
+          }
+        ],
+        "samples": {
+          "phase": "main",
+          "name": "v3-runtime",
+          "baseline": "samples/main/v3-runtime-baseline.txt",
+          "patched": "samples/main/v3-runtime-patched.txt"
+        }
+      },
+      {
+        "name": "nomapsplitgroup-v1-custom",
+        "expected_names": [
+          "BenchmarkSwissMap/Key32Value256/Size=4096/DeleteInsert",
+          "BenchmarkSwissMap/Key32Value256/Size=4096/Grow",
+          "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=0",
+          "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=100",
+          "BenchmarkSwissMap/Key32Value256/Size=4096/Update",
+          "BenchmarkSwissMap/Key32Value256/Size=65536/Make",
+          "BenchmarkSwissMap/StringValue64/Size=4096/DeleteInsert",
+          "BenchmarkSwissMap/StringValue64/Size=4096/Grow",
+          "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=0",
+          "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=100",
+          "BenchmarkSwissMap/StringValue64/Size=4096/Update",
+          "BenchmarkSwissMap/StringValue64/Size=65536/Make",
+          "BenchmarkSwissMap/U64U64/Size=0/Make",
+          "BenchmarkSwissMap/U64U64/Size=4096/DeleteInsert",
+          "BenchmarkSwissMap/U64U64/Size=4096/Grow",
+          "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=0",
+          "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=100",
+          "BenchmarkSwissMap/U64U64/Size=4096/Update",
+          "BenchmarkSwissMap/U64U64/Size=65536/Make"
+        ],
+        "runs": [
+          {
+            "pattern": "^BenchmarkSwissMap$/(U64U64|StringValue64|Key32Value256)$/Size=65536$/Make$",
+            "expected_names": [
+              "BenchmarkSwissMap/Key32Value256/Size=65536/Make",
+              "BenchmarkSwissMap/StringValue64/Size=65536/Make",
+              "BenchmarkSwissMap/U64U64/Size=65536/Make"
+            ],
+            "duration": "500ms",
+            "extra_arguments": [],
+            "artifact": "custom-nomapsplitgroup-v1"
+          },
+          {
+            "pattern": "^BenchmarkSwissMap$/(U64U64|StringValue64|Key32Value256)$/Size=4096$/(Grow|Update|DeleteInsert)$",
+            "expected_names": [
+              "BenchmarkSwissMap/Key32Value256/Size=4096/DeleteInsert",
+              "BenchmarkSwissMap/Key32Value256/Size=4096/Grow",
+              "BenchmarkSwissMap/Key32Value256/Size=4096/Update",
+              "BenchmarkSwissMap/StringValue64/Size=4096/DeleteInsert",
+              "BenchmarkSwissMap/StringValue64/Size=4096/Grow",
+              "BenchmarkSwissMap/StringValue64/Size=4096/Update",
+              "BenchmarkSwissMap/U64U64/Size=4096/DeleteInsert",
+              "BenchmarkSwissMap/U64U64/Size=4096/Grow",
+              "BenchmarkSwissMap/U64U64/Size=4096/Update"
+            ],
+            "duration": "500ms",
+            "extra_arguments": [],
+            "artifact": "custom-nomapsplitgroup-v1"
+          },
+          {
+            "pattern": "^BenchmarkSwissMap$/(U64U64|StringValue64|Key32Value256)$/Size=4096$/Lookup$/Hit=(0|100)$",
+            "expected_names": [
+              "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=0",
+              "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=100",
+              "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=0",
+              "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=100",
+              "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=0",
+              "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=100"
+            ],
+            "duration": "500ms",
+            "extra_arguments": [],
+            "artifact": "custom-nomapsplitgroup-v1"
+          },
+          {
+            "pattern": "^BenchmarkSwissMap$/U64U64$/Size=0$/Make$",
+            "expected_names": [
+              "BenchmarkSwissMap/U64U64/Size=0/Make"
+            ],
+            "duration": "500ms",
+            "extra_arguments": [],
+            "artifact": "custom-nomapsplitgroup-v1"
+          }
+        ],
+        "samples": {
+          "phase": "main",
+          "name": "nomapsplitgroup-v1-custom",
+          "baseline": "samples/main/nomapsplitgroup-v1-custom-baseline.txt",
+          "patched": "samples/main/nomapsplitgroup-v1-custom-patched.txt"
+        }
+      },
+      {
+        "name": "nomapsplitgroup-v1-runtime",
+        "expected_names": [
+          "BenchmarkMapAccessHit/Key=int64/Elem=int64/len=12",
+          "BenchmarkMapAccessHit/Key=string/Elem=string/len=12",
+          "BenchmarkMapAccessMiss/Key=int64/Elem=int64/len=12",
+          "BenchmarkMapAccessMiss/Key=string/Elem=string/len=12",
+          "BenchmarkMapAssignExists/Key=int64/Elem=int64/len=12",
+          "BenchmarkMapAssignExists/Key=string/Elem=string/len=12",
+          "BenchmarkMapCycle",
+          "BenchmarkMapDelete/Key=int64/Elem=int64/len=12",
+          "BenchmarkMapDelete/Key=string/Elem=string/len=12",
+          "BenchmarkMapStringKeysEight_128",
+          "BenchmarkMapStringKeysEight_16"
+        ],
+        "runs": [
+          {
+            "pattern": "^BenchmarkMap(AccessHit|AccessMiss|AssignExists|Delete)$/Key=(int64|string)$/Elem=(int64|string)$/len=12$",
+            "expected_names": [
+              "BenchmarkMapAccessHit/Key=int64/Elem=int64/len=12",
+              "BenchmarkMapAccessHit/Key=string/Elem=string/len=12",
+              "BenchmarkMapAccessMiss/Key=int64/Elem=int64/len=12",
+              "BenchmarkMapAccessMiss/Key=string/Elem=string/len=12",
+              "BenchmarkMapAssignExists/Key=int64/Elem=int64/len=12",
+              "BenchmarkMapAssignExists/Key=string/Elem=string/len=12",
+              "BenchmarkMapDelete/Key=int64/Elem=int64/len=12",
+              "BenchmarkMapDelete/Key=string/Elem=string/len=12"
+            ],
+            "duration": "300ms",
+            "extra_arguments": [
+              "-mapbench"
+            ],
+            "artifact": "runtime-nomapsplitgroup-v1"
+          },
+          {
+            "pattern": "^BenchmarkMap(Cycle|StringKeysEight_(16|128))$",
+            "expected_names": [
+              "BenchmarkMapCycle",
+              "BenchmarkMapStringKeysEight_128",
+              "BenchmarkMapStringKeysEight_16"
+            ],
+            "duration": "300ms",
+            "extra_arguments": [
+              "-mapbench"
+            ],
+            "artifact": "runtime-nomapsplitgroup-v1"
+          }
+        ],
+        "samples": {
+          "phase": "main",
+          "name": "nomapsplitgroup-v1-runtime",
+          "baseline": "samples/main/nomapsplitgroup-v1-runtime-baseline.txt",
+          "patched": "samples/main/nomapsplitgroup-v1-runtime-patched.txt"
+        }
+      },
+      {
+        "name": "v4-custom",
+        "expected_names": [
+          "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=0",
+          "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=100",
+          "BenchmarkSwissMap/Key32Value256/Size=65536/Make",
+          "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=0",
+          "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=100",
+          "BenchmarkSwissMap/StringValue64/Size=65536/Make",
+          "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=0",
+          "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=100",
+          "BenchmarkSwissMap/U64U64/Size=65536/Make"
+        ],
+        "runs": [
+          {
+            "pattern": "^BenchmarkSwissMap$/(U64U64|StringValue64|Key32Value256)$/Size=65536$/Make$",
+            "expected_names": [
+              "BenchmarkSwissMap/Key32Value256/Size=65536/Make",
+              "BenchmarkSwissMap/StringValue64/Size=65536/Make",
+              "BenchmarkSwissMap/U64U64/Size=65536/Make"
+            ],
+            "duration": "500ms",
+            "extra_arguments": [],
+            "artifact": "custom-v4"
+          },
+          {
+            "pattern": "^BenchmarkSwissMap$/(U64U64|StringValue64|Key32Value256)$/Size=4096$/Lookup$/Hit=(0|100)$",
+            "expected_names": [
+              "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=0",
+              "BenchmarkSwissMap/Key32Value256/Size=4096/Lookup/Hit=100",
+              "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=0",
+              "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=100",
+              "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=0",
+              "BenchmarkSwissMap/U64U64/Size=4096/Lookup/Hit=100"
+            ],
+            "duration": "500ms",
+            "extra_arguments": [],
+            "artifact": "custom-v4"
+          }
+        ],
+        "samples": {
+          "phase": "main",
+          "name": "v4-custom",
+          "baseline": "samples/main/v4-custom-baseline.txt",
+          "patched": "samples/main/v4-custom-patched.txt"
+        }
+      },
+      {
+        "name": "apps",
+        "expected_names": [
+          "BenchmarkEscapedExecutePage",
+          "BenchmarkMarshalMap",
+          "BenchmarkParse",
+          "BenchmarkResolve",
+          "BenchmarkTemplateSpecialTags",
+          "BenchmarkUnmarshalMap"
+        ],
+        "runs": [
+          {
+            "pattern": "^Benchmark(MarshalMap|UnmarshalMap)$",
+            "expected_names": [
+              "BenchmarkMarshalMap",
+              "BenchmarkUnmarshalMap"
+            ],
+            "duration": "500ms",
+            "extra_arguments": [],
+            "artifact": "app-json"
+          },
+          {
+            "pattern": "^Benchmark(EscapedExecutePage|TemplateSpecialTags)$",
+            "expected_names": [
+              "BenchmarkEscapedExecutePage",
+              "BenchmarkTemplateSpecialTags"
+            ],
+            "duration": "500ms",
+            "extra_arguments": [],
+            "artifact": "app-template"
+          },
+          {
+            "pattern": "^Benchmark(Parse|Resolve)$",
+            "expected_names": [
+              "BenchmarkParse",
+              "BenchmarkResolve"
+            ],
+            "duration": "500ms",
+            "extra_arguments": [],
+            "artifact": "app-parser"
+          }
+        ],
+        "samples": {
+          "phase": "main",
+          "name": "apps",
+          "baseline": "samples/main/apps-baseline.txt",
+          "patched": "samples/main/apps-patched.txt"
+        }
+      },
+      {
+        "name": "stack",
+        "expected_names": [
+          "BenchmarkStackMap/Uint64One",
+          "BenchmarkStackMap/Uint64Six",
+          "BenchmarkStackMap/Uint64Eight",
+          "BenchmarkStackMap/StringShort",
+          "BenchmarkStackMap/StringLong"
+        ],
+        "runs": [
+          {
+            "pattern": "^BenchmarkStackMap$",
+            "expected_names": [
+              "BenchmarkStackMap/Uint64One",
+              "BenchmarkStackMap/Uint64Six",
+              "BenchmarkStackMap/Uint64Eight",
+              "BenchmarkStackMap/StringShort",
+              "BenchmarkStackMap/StringLong"
+            ],
+            "duration": "500ms",
+            "extra_arguments": [],
+            "artifact": "stack"
+          }
+        ],
+        "samples": {
+          "phase": "main",
+          "name": "stack",
+          "baseline": "samples/main/stack-baseline.txt",
+          "patched": "samples/main/stack-patched.txt"
+        }
+      }
+    ]
+  },
+  "prespecified": {
+    "order": [
+      "baseline",
+      "patched",
+      "patched",
+      "baseline"
+    ],
+    "samples_per_batch": 5,
+    "samples_per_variant": 10,
+    "benchtime": "1s",
+    "cases": [
+      {
+        "name": "case1-stack",
+        "artifact": "stack",
+        "patterns": [
+          {
+            "pattern": "^BenchmarkStackMap$/^Uint64Six$",
+            "expected_names": [
+              "BenchmarkStackMap/Uint64Six"
+            ]
+          }
+        ],
+        "extra_arguments": [],
+        "samples": {
+          "phase": "prespecified",
+          "name": "case1-stack",
+          "baseline": "samples/prespecified/case1-stack-baseline.txt",
+          "patched": "samples/prespecified/case1-stack-patched.txt"
+        }
+      },
+      {
+        "name": "case2-v3-custom",
+        "artifact": "custom-v3",
+        "patterns": [
+          {
+            "pattern": "^BenchmarkSwissMap$/^Key32Value256$/^Size=4096$/^Update$",
+            "expected_names": [
+              "BenchmarkSwissMap/Key32Value256/Size=4096/Update"
+            ]
+          }
+        ],
+        "extra_arguments": [],
+        "samples": {
+          "phase": "prespecified",
+          "name": "case2-v3-custom",
+          "baseline": "samples/prespecified/case2-v3-custom-baseline.txt",
+          "patched": "samples/prespecified/case2-v3-custom-patched.txt"
+        }
+      },
+      {
+        "name": "case3-nomapsplitgroup-v1-runtime",
+        "artifact": "runtime-nomapsplitgroup-v1",
+        "patterns": [
+          {
+            "pattern": "^BenchmarkMapStringKeysEight_16$",
+            "expected_names": [
+              "BenchmarkMapStringKeysEight_16"
+            ]
+          }
+        ],
+        "extra_arguments": [
+          "-mapbench"
+        ],
+        "samples": {
+          "phase": "prespecified",
+          "name": "case3-nomapsplitgroup-v1-runtime",
+          "baseline": "samples/prespecified/case3-nomapsplitgroup-v1-runtime-baseline.txt",
+          "patched": "samples/prespecified/case3-nomapsplitgroup-v1-runtime-patched.txt"
+        }
+      },
+      {
+        "name": "case4-nomapsplitgroup-v1-custom",
+        "artifact": "custom-nomapsplitgroup-v1",
+        "patterns": [
+          {
+            "pattern": "^BenchmarkSwissMap$/^StringValue64$/^Size=4096$/^Update$",
+            "expected_names": [
+              "BenchmarkSwissMap/StringValue64/Size=4096/Update"
+            ]
+          }
+        ],
+        "extra_arguments": [],
+        "samples": {
+          "phase": "prespecified",
+          "name": "case4-nomapsplitgroup-v1-custom",
+          "baseline": "samples/prespecified/case4-nomapsplitgroup-v1-custom-baseline.txt",
+          "patched": "samples/prespecified/case4-nomapsplitgroup-v1-custom-patched.txt"
+        }
+      },
+      {
+        "name": "case5-apps",
+        "artifact": "app-json",
+        "patterns": [
+          {
+            "pattern": "^BenchmarkMarshalMap$",
+            "expected_names": [
+              "BenchmarkMarshalMap"
+            ]
+          }
+        ],
+        "extra_arguments": [],
+        "samples": {
+          "phase": "prespecified",
+          "name": "case5-apps",
+          "baseline": "samples/prespecified/case5-apps-baseline.txt",
+          "patched": "samples/prespecified/case5-apps-patched.txt"
+        }
+      },
+      {
+        "name": "case6-v3-custom",
+        "artifact": "custom-v3",
+        "patterns": [
+          {
+            "pattern": "^BenchmarkSwissMap$/^StringValue64$/^Size=4096$/^Lookup$/^Hit=100$",
+            "expected_names": [
+              "BenchmarkSwissMap/StringValue64/Size=4096/Lookup/Hit=100"
+            ]
+          }
+        ],
+        "extra_arguments": [],
+        "samples": {
+          "phase": "prespecified",
+          "name": "case6-v3-custom",
+          "baseline": "samples/prespecified/case6-v3-custom-baseline.txt",
+          "patched": "samples/prespecified/case6-v3-custom-patched.txt"
+        }
+      }
+    ]
+  },
+  "fixed": [
+    {
+      "name": "native386",
+      "goarch": "386",
+      "goamd64": null,
+      "go386": "sse2",
+      "workload": "Uint64Six",
+      "iterations_per_process": 20000000,
+      "processes_per_variant": 10,
+      "cycles": 5,
+      "order": [
+        "baseline",
+        "patched",
+        "patched",
+        "baseline"
+      ],
+      "samples": {
+        "phase": "fixed",
+        "name": "native386",
+        "baseline": "samples/fixed/native386-baseline.txt",
+        "patched": "samples/fixed/native386-patched.txt"
+      }
+    },
+    {
+      "name": "string-short",
+      "goarch": "amd64",
+      "goamd64": "v1",
+      "go386": null,
+      "workload": "StringShort",
+      "iterations_per_process": 20000000,
+      "processes_per_variant": 10,
+      "cycles": 5,
+      "order": [
+        "baseline",
+        "patched",
+        "patched",
+        "baseline"
+      ],
+      "samples": {
+        "phase": "fixed",
+        "name": "string-short",
+        "baseline": "samples/fixed/string-short-baseline.txt",
+        "patched": "samples/fixed/string-short-patched.txt"
+      }
+    },
+    {
+      "name": "uint64-eight",
+      "goarch": "amd64",
+      "goamd64": "v1",
+      "go386": null,
+      "workload": "Uint64Eight",
+      "iterations_per_process": 20000000,
+      "processes_per_variant": 10,
+      "cycles": 5,
+      "order": [
+        "baseline",
+        "patched",
+        "patched",
+        "baseline"
+      ],
+      "samples": {
+        "phase": "fixed",
+        "name": "uint64-eight",
+        "baseline": "samples/fixed/uint64-eight-baseline.txt",
+        "patched": "samples/fixed/uint64-eight-patched.txt"
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "name": "custom-v3",
+      "goamd64": "v3",
+      "goexperiment": "",
+      "goarch": "amd64",
+      "cgo_enabled": "1",
+      "probe": "custom"
+    },
+    {
+      "name": "custom-nomapsplitgroup-v1",
+      "goamd64": "v1",
+      "goexperiment": "nomapsplitgroup",
+      "goarch": "amd64",
+      "cgo_enabled": "1",
+      "probe": "custom"
+    },
+    {
+      "name": "custom-v4",
+      "goamd64": "v4",
+      "goexperiment": "",
+      "goarch": "amd64",
+      "cgo_enabled": "1",
+      "probe": "custom"
+    },
+    {
+      "name": "runtime-v3",
+      "goamd64": "v3",
+      "goexperiment": "",
+      "goarch": "amd64",
+      "cgo_enabled": "1",
+      "package": "runtime"
+    },
+    {
+      "name": "runtime-nomapsplitgroup-v1",
+      "goamd64": "v1",
+      "goexperiment": "nomapsplitgroup",
+      "goarch": "amd64",
+      "cgo_enabled": "1",
+      "package": "runtime"
+    },
+    {
+      "name": "app-json",
+      "goamd64": "v1",
+      "goexperiment": "",
+      "goarch": "amd64",
+      "cgo_enabled": "1",
+      "package": "encoding/json"
+    },
+    {
+      "name": "app-template",
+      "goamd64": "v1",
+      "goexperiment": "",
+      "goarch": "amd64",
+      "cgo_enabled": "1",
+      "package": "html/template"
+    },
+    {
+      "name": "app-parser",
+      "goamd64": "v1",
+      "goexperiment": "",
+      "goarch": "amd64",
+      "cgo_enabled": "1",
+      "package": "go/parser"
+    },
+    {
+      "name": "stack",
+      "goamd64": "v1",
+      "goexperiment": "",
+      "goarch": "amd64",
+      "cgo_enabled": "1",
+      "probe": "stack"
+    }
+  ],
+  "sample_pairs": [
+    {
+      "phase": "main",
+      "name": "v3-custom",
+      "baseline": "samples/main/v3-custom-baseline.txt",
+      "patched": "samples/main/v3-custom-patched.txt"
+    },
+    {
+      "phase": "main",
+      "name": "v3-runtime",
+      "baseline": "samples/main/v3-runtime-baseline.txt",
+      "patched": "samples/main/v3-runtime-patched.txt"
+    },
+    {
+      "phase": "main",
+      "name": "nomapsplitgroup-v1-custom",
+      "baseline": "samples/main/nomapsplitgroup-v1-custom-baseline.txt",
+      "patched": "samples/main/nomapsplitgroup-v1-custom-patched.txt"
+    },
+    {
+      "phase": "main",
+      "name": "nomapsplitgroup-v1-runtime",
+      "baseline": "samples/main/nomapsplitgroup-v1-runtime-baseline.txt",
+      "patched": "samples/main/nomapsplitgroup-v1-runtime-patched.txt"
+    },
+    {
+      "phase": "main",
+      "name": "v4-custom",
+      "baseline": "samples/main/v4-custom-baseline.txt",
+      "patched": "samples/main/v4-custom-patched.txt"
+    },
+    {
+      "phase": "main",
+      "name": "apps",
+      "baseline": "samples/main/apps-baseline.txt",
+      "patched": "samples/main/apps-patched.txt"
+    },
+    {
+      "phase": "main",
+      "name": "stack",
+      "baseline": "samples/main/stack-baseline.txt",
+      "patched": "samples/main/stack-patched.txt"
+    },
+    {
+      "phase": "prespecified",
+      "name": "case1-stack",
+      "baseline": "samples/prespecified/case1-stack-baseline.txt",
+      "patched": "samples/prespecified/case1-stack-patched.txt"
+    },
+    {
+      "phase": "prespecified",
+      "name": "case2-v3-custom",
+      "baseline": "samples/prespecified/case2-v3-custom-baseline.txt",
+      "patched": "samples/prespecified/case2-v3-custom-patched.txt"
+    },
+    {
+      "phase": "prespecified",
+      "name": "case3-nomapsplitgroup-v1-runtime",
+      "baseline": "samples/prespecified/case3-nomapsplitgroup-v1-runtime-baseline.txt",
+      "patched": "samples/prespecified/case3-nomapsplitgroup-v1-runtime-patched.txt"
+    },
+    {
+      "phase": "prespecified",
+      "name": "case4-nomapsplitgroup-v1-custom",
+      "baseline": "samples/prespecified/case4-nomapsplitgroup-v1-custom-baseline.txt",
+      "patched": "samples/prespecified/case4-nomapsplitgroup-v1-custom-patched.txt"
+    },
+    {
+      "phase": "prespecified",
+      "name": "case5-apps",
+      "baseline": "samples/prespecified/case5-apps-baseline.txt",
+      "patched": "samples/prespecified/case5-apps-patched.txt"
+    },
+    {
+      "phase": "prespecified",
+      "name": "case6-v3-custom",
+      "baseline": "samples/prespecified/case6-v3-custom-baseline.txt",
+      "patched": "samples/prespecified/case6-v3-custom-patched.txt"
+    },
+    {
+      "phase": "fixed",
+      "name": "native386",
+      "baseline": "samples/fixed/native386-baseline.txt",
+      "patched": "samples/fixed/native386-patched.txt"
+    },
+    {
+      "phase": "fixed",
+      "name": "string-short",
+      "baseline": "samples/fixed/string-short-baseline.txt",
+      "patched": "samples/fixed/string-short-patched.txt"
+    },
+    {
+      "phase": "fixed",
+      "name": "uint64-eight",
+      "baseline": "samples/fixed/uint64-eight-baseline.txt",
+      "patched": "samples/fixed/uint64-eight-patched.txt"
+    }
+  ],
+  "benchstat_module": "golang.org/x/perf/cmd/benchstat@v0.0.0-20261009192801-be2c69fb417e"
+}

@@ -1,0 +1,44 @@
+{
+  "delve_repository": "https://github.com/go-delve/delve",
+  "delve_revision": "0b7d2120c4e9789394af65a2d87fc7f8ab08d6e8",
+  "delve_version": "1.27.2",
+  "patch_sha256": "17df970b02413bd13176ea0acccd39d1ec8bd3a90bd50d9201deae3572d87d88",
+  "encoding_detection": "Target DWARF constant internal/runtime/maps.ctrlEmpty, resolved through internal/runtime/maps.ctrl type. Legacy 0x80 fallback when target metadata is absent.",
+  "original_debugger": "All four baseline targets pass, all four zero-empty targets reproduce map-read failures.",
+  "compatible_debugger": "All eight targets pass, spanning both map layouts and debug/optimized builds.",
+  "supported_release": "Go1.27.4 target passes original and compatible debugger with Go version checking enabled.",
+  "go128_version_check": "Go1.28-devel target probes use disabled version checking. Pinned Delve officially supports through Go1.27. The companion uses the existing version policy.",
+  "unit_test": "TestSwissMapControlEncoding checks legacy, zero, missing type, missing constant, and unrelated constant under the same producer, covering all256 control bytes. Normal and race modes pass.",
+  "existing_tests": {
+    "tests": [
+      "TestMapEvaluation",
+      "TestMapImplementationVariants"
+    ],
+    "fixture_compilers": [
+      "Go1.27.4",
+      "Go1.28 pristine baseline",
+      "Go1.28 zero-empty patch"
+    ],
+    "result": "PASS for all, both layouts"
+  },
+  "publication_status": "Prepared companion patch. Upstream Delve review and release coordination are pending.",
+  "scope": "Native Linux/amd64 map reading and lookup.",
+  "final_tested_go_revision": "ddc6bf091828c267719f2a3b504460f8a1d2866e",
+  "fresh_final_matrix": {
+    "targets": 8,
+    "debugger_checks": 16,
+    "variants": [
+      "baseline",
+      "patched"
+    ],
+    "map_layouts": [
+      "mapsplitgroup",
+      "nomapsplitgroup"
+    ],
+    "build_modes": [
+      "debug",
+      "optimized"
+    ],
+    "all_passed": true
+  }
+}
